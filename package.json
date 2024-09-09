@@ -25,8 +25,9 @@
     "test": "jest",
     "start": "node server.js",
     "dev": "jsx watch server.js",
-    "build": "prisma generate",
-    "prisma": "prisma generate"
+    "build": "prisma generate && node server.js",
+    "prisma": "prisma generate",
+    "postinstall": "prisma generate"
   },
   "author": "",
   "license": "ISC",
