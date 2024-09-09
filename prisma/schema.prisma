@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model Contato {
+  ID                              Int     @id @default(autoincrement())
+  ID_Empresa                      Int
+  Telefone                        String? @db.VarChar(100)
+  Codigo_Telefonico_Internacional String? @db.VarChar(100)
+  Email                           String? @db.VarChar(100)
+  Empresa                         Empresa @relation(fields: [ID_Empresa], references: [ID])
+}
+
+model Dados_Treino {
+  ID                      Int                       @id @default(autoincrement())
+  ID_Empresa              Int
+  Data                    DateTime
+  Rotulos                 String?
+  Dados                   String?
+  Empresa                 Empresa                   @relation(fields: [ID_Empresa], references: [ID])
+  Modelo_Machine_Learning Modelo_Machine_Learning[]
+}
+
+model Decisao {
+  ID                      Int                     @id @default(autoincrement())
+  ID_Modelo_ML            Int
+  Data                    DateTime
+  Saida                   String?
+  Modelo_Machine_Learning Modelo_Machine_Learning @relation(fields: [ID_Modelo_ML], references: [ID])
+}
+
+model Empresa {
+  ID            Int            @id @default(autoincrement())
+  Nome          String
+  CNPJ          String         @db.VarChar(20)
+  Possui_Filial Boolean
+  Data_Abertura DateTime?
+  Codigo        String?        @db.VarChar(100)
+  Contato       Contato[]
+  Dados_Treino  Dados_Treino[]
+  Endereco      Endereco[]
+  Filial        Filial[]
+  Matriz        Matriz?
+  
+}
+
+model Endereco {
+  ID          Int     @id @default(autoincrement())
+  ID_Empresa  Int
+  CEP         String? @db.VarChar(20)
+  Estado      String? @db.VarChar(100)
+  Cidade      String? @db.VarChar(100)
+  Bairro      String? @db.VarChar(100)
+  Logradouro  String? @db.VarChar(100)
+  Numero      String? @db.VarChar(100)
+  Complemento String? @db.VarChar(100)
+  Empresa     Empresa @relation(fields: [ID_Empresa], references: [ID])
+}
+
+model Filial {
+  ID         Int     @id @default(autoincrement())
+  ID_Empresa Int
+  E_filial   Boolean
+  Codigo     String? @db.VarChar(100)
+  Empresa    Empresa @relation(fields: [ID_Empresa], references: [ID])
+}
+
+model Matriz {
+  ID         Int     @id @default(autoincrement())
+  ID_Empresa Int     @unique
+  E_matriz   Boolean
+  Senha      String  @db.VarChar(100)
+  Empresa    Empresa @relation(fields: [ID_Empresa], references: [ID])
+}
+
+model Modelo_Machine_Learning {
+  ID           Int          @id @default(autoincrement())
+  ID_Dados     Int
+  Data         DateTime
+  Parametros   String?
+  Decisao      Decisao[]
+  Dados_Treino Dados_Treino @relation(fields: [ID_Dados], references: [ID])
+}

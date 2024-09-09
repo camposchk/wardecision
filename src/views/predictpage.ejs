@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WD</title>
+
+    <link rel="icon" type="image" href="assets/logo.ico">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/predictpage.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+     <!-- Fonts -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+ 
+
+</head>
+<body>
+    <header>
+        <navbar-component></navbar-component>
+    </header>
+
+    <main>
+        <div class="wave-container">
+            <div class="wave top"></div>
+            <div class="wave top"></div>
+            <div class="wave top"></div>
+            <div class="wave top"></div>
+            <div class="wave bottom"></div>
+            <div class="wave bottom"></div>
+            <div class="wave bottom"></div>
+            <div class="wave bottom"></div>
+    
+            <svg width="0" height="0">
+                <defs>
+                    <clipPath id="wavePath" clipPathUnits="objectBoundingBox">
+                        <path d="M 0,2
+                        L 0,0.75
+                        C 0.2,0.65 0.3,0.55 0.4,0.65 
+                        S 0.6,0.95 0.8,0.75 
+                        S 1,0.6 1,0.75 
+                        V 0,1 
+                        Z" />
+                    </clipPath>
+                </defs>
+            </svg>
+        </div>
+    
+        <section class="section2" style="display: flex; justify-content: center; align-items: center">
+            <form id="preverForm" onsubmit="handleSubmit(event)">
+                <div class="divbox">
+                    <div class="dropzone">
+                        <div style="display: flex; align-items: center; flex-direction: column" id="dropZone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" ondragleave="dragLeaveHandler(event)" onclick="openFileDialog()">
+                            <h1 style="color: white; font-weight: 700; margin-top: 4.12rem">ARRASTE A PLANILHA AQUI</h1>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="166" height="166" viewBox="0 0 166 166" fill="none" style="margin-top: 10.88rem;">
+                                <circle cx="83" cy="83" r="75" fill="#77181E" fill-opacity="0.7"/>
+                                <circle cx="83" cy="83" r="79" stroke="#DEE7E7" stroke-opacity="0.7" stroke-width="8"/>
+                                <text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle" font-size="6rem" style="fill: rgba(222, 231, 231, 0.70);">+</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div id="fileDetails" style="display: none;">
+                        <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; margin-top: 3.88rem">
+                            <h2 style="color: white; font-weight: 700;">QC:</h2>
+                            <input type="text" id="qcInput" class="inputstyle" required>
+                        </div>
+                        <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; margin-top: 13.31rem">
+                            <img src="/assets/excel.png" alt="" style="width: 36px; height: 36px;">
+                            <h1 id="fileName" style="color: white; margin-left: 10px; margin-right: 10px"></h1>
+                            <button type="button" onclick="openFileDialog()" style="background: none; border: none; padding: 0; margin: 0;">
+                                <img src="/assets/edit.png" alt="Edit" style="width: 15px; height: 15px; cursor: pointer;">
+                            </button>
+                        </div>
+                        <div style="display: flex; justify-content: center; align-items: center; margin-top: 5rem">
+                            <input type="submit" class="btn-login btn-geral" value="PREVER"/>
+                        </div>
+                    </div>
+                </div>
+                <input type="file" id="fileInput" style="display: none;" accept=".xlsx" onchange="handleFiles(this.files)">
+            </form>         
+        </section>
+    </main>
+    
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script src="js/dragfiles.js"></script>
+    <script src="js/navbar_component.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

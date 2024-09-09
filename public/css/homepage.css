@@ -1,0 +1,217 @@
+@import url('base.css');
+
+body {
+    min-height: 100vh;
+    height: auto;
+    background: rgb(40, 40, 50);
+    background: linear-gradient(0deg, rgba(40, 40, 50, 1) 0%, rgba(70, 70, 86, 1) 100%) !important;
+}
+    
+.nav{
+    width: 100vw;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    min-height: 100vh;
+    height: auto;
+}
+
+hr {
+    width: 100%;
+    height: 2px;
+    opacity: 1 !important;
+    background: var(--branco-primario);
+}
+
+.title {
+    margin-top: 50px;
+    width: 100%;
+    color: var(--branco-secundario);
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+span {
+    color: var(--branco-primario);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 50px 0 50px;
+    text-align: justify;
+    color: var(--branco-primario);
+    cursor: pointer;
+}
+
+.content-description {
+    font-size: large;
+    text-align: center;
+    padding: 1%;
+}
+
+.icon {
+    font-size: 5rem;
+}
+
+.btn-access {
+    width: 150px;
+    height: 45px;
+    font-size: large;
+    margin-bottom: 50px;
+}
+
+.some-text{
+    color: var(--branco-secundario);
+    text-align: center;
+    font-size: large;
+    margin-bottom: 50px;
+}
+
+.section1 {
+    width: 100%;
+    min-height: 25vh;
+    height: auto;
+}
+
+.section2 {
+    width: 100%;
+    min-height: 25vh;
+    height: auto;
+    background-color: rgb(119, 24, 30, 0.30);
+}
+
+.section3 {
+    width: 100%;
+    min-height: 25vh;
+    height: auto;
+    background-color: rgb(119, 24, 30, 0.30);
+}
+
+.section4 {
+    width: 100%;
+    min-height: 25vh;
+    height: auto;
+    background-color: rgb(119, 24, 30, 0.30);
+}
+
+section {
+    overflow: hidden;
+}
+
+section:hover {
+    transition: 0.5s;
+    background-color: rgba(119, 24, 30, 0.062);
+}
+
+section .title p,
+section .content .text,
+section .content .icon,
+section .content .btn-access {
+    transition: transform 0.5s;
+}
+
+section:hover .title p,
+section:hover .content .text,
+section:hover .content .icon,
+section:hover .content .btn-access {
+    transform: scale(1.1);
+}
+
+@media (width > 1024px) {
+    body {
+        min-height: 100vh;
+        height: auto;
+    }
+
+    .nav{
+        width: 100%;
+    }
+
+    hr {
+        width: 2px;
+        height: 50vh;
+        margin-block-start: 0 !important;
+        margin-block-end: 0 !important;
+        transition: height 0.5s;
+    }
+
+    main {
+        flex-direction: row;
+        width: 100%;
+        min-height: 100vh;
+        height: auto;
+    }
+
+    .section1 {
+        width: 25%;
+    }
+
+    .title {
+        margin-top: 100px;
+    }
+
+    .content {
+        transform: translateY(10%);
+    }
+
+    .some-text {
+        margin: 0;
+        overflow: hidden;
+        overflow-y: auto;
+        max-height: 500px;
+        padding: 0 45px 0 45px;
+    }
+
+    .some-text::-webkit-scrollbar {
+        width: 10px;
+        /* width of the entire scrollbar */
+    }
+
+    .some-text::-webkit-scrollbar-track {
+        background: #34343F;
+        /* color of the tracking area */
+    }
+
+    .some-text::-webkit-scrollbar-thumb {
+        background-color: var(--branco-primario);
+        /* color of the scroll thumb */
+        border-radius: 20px;
+        /* roundness of the scroll thumb */
+        border: 3px solid #34343F;
+        ;
+        /* creates padding around scroll thumb */
+    }
+
+    .icon {
+        font-size: 6rem;
+    }
+
+    .text {
+        min-height: 160px;
+    }
+
+    .section2 {
+        width: 25%;
+
+    }
+
+    .section3 {
+        width: 25%;
+    }
+
+    .section4 {
+        width: 25%;
+    }
+
+    main:hover .row1,
+    main:hover .row2,
+    main:hover .row3 {
+        height: 100vh;
+    }
+}
