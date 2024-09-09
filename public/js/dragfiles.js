@@ -101,9 +101,6 @@ function handleSubmit(event) {
 }
 
 function sendToAPI(data) {
-    const axios = require('axios');
-    const https = require('https');
-
     const url = 'http://8541538b-c296-4900-b21a-975667d6b551.brazilsouth.azurecontainer.io/score';
     
     const requestData = {
@@ -111,19 +108,12 @@ function sendToAPI(data) {
             "data": [data]
         }
     };
-    
+
     const headers = {
         'Content-Type': 'application/json'
     };
 
-    const httpsAgent = new https.Agent({
-        rejectUnauthorized: false
-    });
-
-    axios.post(url, requestData, {
-        headers: headers,
-        httpsAgent: httpsAgent 
-    })
+    axios.post(url, requestData, { headers })
     .then(response => {
         console.log('API Response:', response.data);
         alert('Resposta da API: ' + JSON.stringify(response.data));
