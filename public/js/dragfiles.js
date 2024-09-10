@@ -113,22 +113,23 @@ function sendToAPI(data) {
         'Content-Type': 'application/json'
     };
 
-    axios.post(url, requestData, { headers })
+    fetch(url, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(requestData)
+    })
     .then(response => {
-        console.log('API Response:', response.data);
-        alert('Resposta da API: ' + JSON.stringify(response.data));
+        if (!response.ok) {
+            throw new Error(`Erro da API: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('API Response:', data);
+        alert('Resposta da API: ' + JSON.stringify(data));
     })
     .catch(error => {
-        if (error.response) {
-            console.error("Erro da API:", error.response.status);
-            console.error("Detalhes:", error.response.data);
-            alert(`Erro da API: ${error.response.status}`);
-        } else if (error.request) {
-            console.error("Nenhuma resposta da API:", error.request);
-            alert('Nenhuma resposta da API.');
-        } else {
-            console.error('Erro ao configurar a requisição:', error.message);
-            alert('Erro ao configurar a requisição: ' + error.message);
-        }
+        console.error('Erro:', error);
+        alert('Erro: ' + error.message);
     });
 }
