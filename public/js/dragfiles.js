@@ -90,8 +90,10 @@ function handleSubmit(event) {
 
         const filteredData = jsonData.filter(row => row['QC'] == qcValue);
         if (filteredData.length > 0) {
-            console.log("Filtered Data:", filteredData[0]);
-            sendToAPI(filteredData[0]);
+            const rowData = { ...filteredData[0] };
+            delete rowData['QC']; // Remove the 'QC' column from the data
+            console.log("Filtered Data (without QC):", rowData);
+            sendToAPI(rowData);
         } else {
             alert("Nenhuma linha encontrada para o QC fornecido.");
         }
@@ -100,8 +102,9 @@ function handleSubmit(event) {
     reader.readAsArrayBuffer(selectedFile);
 }
 
+
 function sendToAPI(data) {
-    const url = 'https://8541538b-c296-4900-b21a-975667d6b551.brazilsouth.azurecontainer.io/score';
+    const url = 'http://8541538b-c296-4900-b21a-975667d6b551.brazilsouth.azurecontainer.io/score';
     
     const requestData = {
         "Inputs": {

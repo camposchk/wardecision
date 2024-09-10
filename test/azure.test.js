@@ -4,7 +4,7 @@ const axios = require('axios');
 const https = require('https');
 
 describe('Testes da API do Azure', () => {
-  const url = 'http://66080e31-4ba6-4c3c-8cf7-cc9ad8048397.brazilsouth.azurecontainer.io/score';
+  const url = 'https://8541538b-c296-4900-b21a-975667d6b551.brazilsouth.azurecontainer.io/score';
   
   const data = {
     "Inputs": {
