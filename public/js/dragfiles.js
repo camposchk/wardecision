@@ -104,7 +104,7 @@ function handleSubmit(event) {
 
 
 function sendToAPI(data) {
-    const url = 'https://8541538b-c296-4900-b21a-975667d6b551.brazilsouth.azurecontainer.io/score';
+    const url = 'http://8541538b-c296-4900-b21a-975667d6b551.brazilsouth.azurecontainer.io/score';
     
     const requestData = {
         "Inputs": {
