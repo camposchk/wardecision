@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cors = require('cors');
 const express = require('express');
 const routes = require('./routes');
 const cookieParser = require("cookie-parser");
@@ -15,6 +16,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('views', path.join(__dirname, 'src', 'views'));
 app.set('view engine', 'ejs');
+
+const corsOptions = {
+  origin: 'https://wardecision.vercel.app',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
 
 // sessões
 const oneDay = 1000 * 60 * 60 * 24;
