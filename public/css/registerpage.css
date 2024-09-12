@@ -294,8 +294,4 @@ input[type="checkbox"].checkbox-custom:checked::before {
         padding-right: 25px;
     }
 
-    .form_row{
-        display: none;
-    }
-
 }
