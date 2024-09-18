@@ -113,10 +113,12 @@ function sendToAPI(data) {
     };
 
     const headers = {
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
     };
 
     fetch(url, {
+        mode: 'no-cors',
         method: 'POST',
         headers: headers,
         body: JSON.stringify(requestData)

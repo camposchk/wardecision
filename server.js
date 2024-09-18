@@ -9,6 +9,7 @@ const path = require('path');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 // arquivos estáticos
 // app.use(express.static('public'));
@@ -17,12 +18,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'src', 'views'));
 app.set('view engine', 'ejs');
 
-const corsOptions = {
-  origin: 'https://wardecision.vercel.app',
-  optionsSuccessStatus: 200 
-};
+// const corsOptions = {
+//   origin: 'https://wardecision.vercel.app',
+//   optionsSuccessStatus: 200 
+// };
 
-app.use(cors(corsOptions));
 
 // sessões
 const oneDay = 1000 * 60 * 60 * 24;
