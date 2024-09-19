@@ -21,7 +21,8 @@
     "express": "^4.19.2",
     "express-fileupload": "^1.5.1",
     "express-session": "^1.18.0",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "request": "^2.88.2"
   },
   "scripts": {
     "test": "jest",

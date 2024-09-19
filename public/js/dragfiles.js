@@ -104,8 +104,8 @@ function handleSubmit(event) {
 
 
 function sendToAPI(data) {
-    const url = 'http://8541538b-c296-4900-b21a-975667d6b551.brazilsouth.azurecontainer.io/score';
-    
+    const url = 'http://localhost:3000/proxy';  // Agora aponta para o proxy
+
     const requestData = {
         "Inputs": {
             "data": [data]
@@ -118,7 +118,6 @@ function sendToAPI(data) {
     };
 
     fetch(url, {
-        mode: 'no-cors',
         method: 'POST',
         headers: headers,
         body: JSON.stringify(requestData)
@@ -130,7 +129,7 @@ function sendToAPI(data) {
         return response.json();
     })
     .then(data => {
-        console.log('API Response:', data);
+        console.log('Resposta da API:', data);
         alert('Resposta da API: ' + JSON.stringify(data));
     })
     .catch(error => {
@@ -138,3 +137,4 @@ function sendToAPI(data) {
         alert('Erro: ' + error.message);
     });
 }
+

@@ -1,6 +1,7 @@
 require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
+const request = require('request');
 const routes = require('./routes');
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
@@ -56,6 +57,29 @@ app.get('/predict', (req, res) => {
 
 app.get('/history', (req, res) => {
   res.render('historypage', { title: 'Histórico' });
+});
+
+// Proxy para a API do Azure
+app.post('/proxy', (req, res) => {
+  const apiURL = 'http://8541538b-c296-4900-b21a-975667d6b551.brazilsouth.azurecontainer.io/score';
+
+  // Fazendo a requisição à API externa
+  const options = {
+      url: apiURL,
+      method: 'POST',
+      json: req.body, // O corpo da requisição é passado diretamente
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  };
+
+  // Faz a requisição e redireciona a resposta para o cliente
+  request(options, (error, response, body) => {
+      if (error) {
+          return res.status(500).send({ error: 'Erro ao acessar a API' });
+      }
+      res.status(response.statusCode).send(body); // Envia a resposta da API de volta para o cliente
+  });
 });
 
 app.use('/api', routes);
