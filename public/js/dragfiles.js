@@ -92,13 +92,16 @@ function handleSubmit(event) {
         if (filteredData.length > 0) {
             let rowData = { ...filteredData[0] };
             delete rowData['QC']; // Remove the 'QC' column from the data
-            
-            // Substitui valores vazios ou indefinidos por null
+
+            // Substitui valores vazios ou indefinidos por null e troca '.' por '_'
             rowData = Object.fromEntries(
-                Object.entries(rowData).map(([key, value]) => [key, value === "" || value === undefined ? None : value])
+                Object.entries(rowData).map(([key, value]) => [
+                    key.replace(/\./g, '_'), // Substitui '.' por '_'
+                    value === "" || value === undefined ? null : value
+                ])
             );
 
-            console.log("Filtered Data (with null values):", rowData);
+            console.log("Filtered Data (with null values and modified keys):", rowData);
             sendToAPI(rowData);
         } else {
             alert("Nenhuma linha encontrada para o QC fornecido.");
@@ -107,6 +110,7 @@ function handleSubmit(event) {
 
     reader.readAsArrayBuffer(selectedFile);
 }
+
 
 
 
