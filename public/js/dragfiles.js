@@ -90,9 +90,15 @@ function handleSubmit(event) {
 
         const filteredData = jsonData.filter(row => row['QC'] == qcValue);
         if (filteredData.length > 0) {
-            const rowData = { ...filteredData[0] };
+            let rowData = { ...filteredData[0] };
             delete rowData['QC']; // Remove the 'QC' column from the data
-            console.log("Filtered Data (without QC):", rowData);
+            
+            // Substitui valores vazios ou indefinidos por null
+            rowData = Object.fromEntries(
+                Object.entries(rowData).map(([key, value]) => [key, value === "" || value === undefined ? None : value])
+            );
+
+            console.log("Filtered Data (with null values):", rowData);
             sendToAPI(rowData);
         } else {
             alert("Nenhuma linha encontrada para o QC fornecido.");
@@ -101,6 +107,7 @@ function handleSubmit(event) {
 
     reader.readAsArrayBuffer(selectedFile);
 }
+
 
 
 function sendToAPI(data) {
