@@ -90,19 +90,8 @@ function handleSubmit(event) {
 
         const filteredData = jsonData.filter(row => row['QC'] == qcValue);
         if (filteredData.length > 0) {
-            let rowData = { ...filteredData[0] };
-            delete rowData['QC']; // Remove the 'QC' column from the data
-
-            // Substitui valores vazios ou indefinidos por null e troca '.' por '_'
-            rowData = Object.fromEntries(
-                Object.entries(rowData).map(([key, value]) => [
-                    key.replace(/\./g, '_'), // Substitui '.' por '_'
-                    value === "" || value === undefined ? null : value
-                ])
-            );
-
-            console.log("Filtered Data (with null values and modified keys):", rowData);
-            sendToAPI(rowData);
+            console.log("Filtered Data:", filteredData[0]);
+            sendToAPI(filteredData[0]);
         } else {
             alert("Nenhuma linha encontrada para o QC fornecido.");
         }
@@ -111,41 +100,45 @@ function handleSubmit(event) {
     reader.readAsArrayBuffer(selectedFile);
 }
 
-
-
-
 function sendToAPI(data) {
-    const url = 'http://localhost:3000/proxy';  // Agora aponta para o proxy
+    const axios = require('axios');
+    const https = require('https');
 
+    const url = 'http://66080e31-4ba6-4c3c-8cf7-cc9ad8048397.brazilsouth.azurecontainer.io/score';
+    
     const requestData = {
         "Inputs": {
             "data": [data]
         }
     };
-
+    
     const headers = {
-        'Accept': 'application/json',
         'Content-Type': 'application/json'
     };
 
-    fetch(url, {
-        method: 'POST',
+    const httpsAgent = new https.Agent({
+        rejectUnauthorized: false
+    });
+
+    axios.post(url, requestData, {
         headers: headers,
-        body: JSON.stringify(requestData)
+        httpsAgent: httpsAgent 
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error(`Erro da API: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Resposta da API:', data);
-        alert('Resposta da API: ' + JSON.stringify(data));
+        console.log('API Response:', response.data);
+        alert('Resposta da API: ' + JSON.stringify(response.data));
     })
     .catch(error => {
-        console.error('Erro:', error);
-        alert('Erro: ' + error.message);
+        if (error.response) {
+            console.error("Erro da API:", error.response.status);
+            console.error("Detalhes:", error.response.data);
+            alert(`Erro da API: ${error.response.status}`);
+        } else if (error.request) {
+            console.error("Nenhuma resposta da API:", error.request);
+            alert('Nenhuma resposta da API.');
+        } else {
+            console.error('Erro ao configurar a requisição:', error.message);
+            alert('Erro ao configurar a requisição: ' + error.message);
+        }
     });
 }
-

@@ -7,7 +7,13 @@ const { hashPassword } = require('../config/auth');
 class EmpresaService {
   async createEmpresa(data) {
     console.log(data)
-    const matrizExists = await prisma.matriz.findFirst();
+    const matrizExists = await prisma.matriz.findFirst({
+      where: {
+        Empresa: {
+          CNPJ: data.CNPJ,
+        }
+      }
+    });
 
     if (!matrizExists) {
       data.matriz = {
@@ -16,16 +22,16 @@ class EmpresaService {
       };
     } else {
       if (data.matriz) {
-        throw new Error('Já existe uma matriz registrada. Esta empresa deve ser uma filial.');
+        throw new Error('Já existe uma matriz registrada com esse CNPJ. Esta empresa deve ser uma filial.');
       }
     }
 
-    // Gera um código único para a empresa
-    const uniqueCode = `EMP-${Date.now()}`;
+    
+    const haveComplement = data.complement ? data.complement : "";
     const hashedPassword = await hashPassword(data.password);
     const haveFilial = data.filials ? true : false;
-    const haveComplement = data.complement ? data.complement : "";
     const dataAbertura = new Date(data.date);
+    const uniqueCode = `EMP-${Date.now()}`;
 
     // Prepara o objeto de dados para a criação
     const empresaData = {
@@ -52,7 +58,7 @@ class EmpresaService {
           Email: data.email
       }]
       } : undefined,
-      Matriz: data.matriz && hashedPassword ? {
+      Matriz: data.matriz ? {
         create: {
           E_matriz: true,
           Senha: hashedPassword,
@@ -69,6 +75,8 @@ class EmpresaService {
     });
 
     return createEmpresa;
+
+
   }
 
   async getEmpresaById(id) {

@@ -38,9 +38,8 @@ async function fetchAddressByCEP(cep) {
     if (message) {
       errorField.textContent = message;
       errorField.style.display = 'block';
-    } else {
+    } else
       errorField.style.display = 'none';
-    }
   }
   
   // Adicionar evento no campo de CEP
