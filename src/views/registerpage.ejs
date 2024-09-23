@@ -88,6 +88,7 @@
                     <label class="label-geral label-register" for="nameCompany">NOME DA EMPRESA
                         <input type="text" class="register" placeholder="Nome da Empresa" name="nameCompany"
                             id="nameCompany" required>
+                        <span id="nameCompanyError" class="error-message"></span>
                     </label>
 
                     <label class="label-geral label-register" for="CNPJ">CNPJ
@@ -106,7 +107,7 @@
                         <label class="label-geral label-register" for="country">PAÍS
                             <input type="text" class="register" placeholder="País" name="country" id="country" required>
                         </label>
-                        
+
                         <label class="label-geral label-register" for="state">ESTADO
                             <input type="text" class="register" placeholder="Estado" name="state" id="state" required>
                         </label>
@@ -116,10 +117,10 @@
                         <label class="label-geral label-register" for="city">CIDADE
                             <input type="text" class="register" placeholder="Cidade" name="city" id="city" required>
                         </label>
-                        
+
                         <label class="label-geral label-register" for="neighborhood">BAIRRO
-                            <input type="text" class="register" placeholder="Bairro" name="neighborhood" id="neighborhood"
-                            required>
+                            <input type="text" class="register" placeholder="Bairro" name="neighborhood"
+                                id="neighborhood" required>
                         </label>
                     </div>
 
@@ -127,7 +128,7 @@
                         <input type="text" class="register" placeholder="Logradouro" name="street" id="street" required>
                     </label>
 
-                    
+
                     <label class="label-geral label-register" for="number">NÚMERO
                         <input type="text" class="register" placeholder="Número" name="number" id="number" required>
                     </label>
@@ -144,6 +145,7 @@
 
                     <label class="label-geral label-register" for="date">DATA ABERTURA
                         <input type="date" class="register" placeholder="Selecione" name="date" id="date" required>
+                        <span id="dateError" class="error-message"></span>
                     </label>
 
                     <label class="label-geral label-register" for="filials">POSSUI FILIAIS
@@ -155,21 +157,21 @@
                     </label>
 
                     <div class="form_row">
-                    <label class="label-geral label-register" for="phoneCode">CTI
-                        <input type="text" class="register" placeholder="+55" name="phoneCode" id="phoneCode"
-                            required>
-                        <span id="phoneCodeError" class="error-message"></span>
-                    </label>
+                        <label class="label-geral label-register" for="phoneCode">CTI
+                            <input type="text" class="register" placeholder="+55" name="phoneCode" id="phoneCode"
+                                required>
+                            <span id="phoneCodeError" class="error-message"></span>
+                        </label>
 
-                    <label class="label-geral label-register" for="phone">TELEFONE
-                        <input type="tel" class="register" placeholder="41 99999999" name="phone" id="phone"
-                            required>
-                    </label>
+                        <label class="label-geral label-register" for="phone">TELEFONE
+                            <input type="tel" class="register" placeholder="41 99999999" name="phone" id="phone"
+                                required>
+                        </label>
                     </div>
 
                     <label class="label-geral label-register" for="email">EMAIL
-                        <input type="text" class="register" placeholder="emailorganizacao@email.com"
-                            name="email" id="email" required>
+                        <input type="text" class="register" placeholder="emailorganizacao@email.com" name="email"
+                            id="email" required>
                     </label>
 
                     <label class="label-geral label-register" for="password">SENHA
@@ -213,6 +215,7 @@
     </footer>
 
     <!-- Scripts -->
+    <script src="js/format.js"></script>
     <script src="js/app.js"></script>
     <script src="js/error.js"></script>
     <script src="js/fetch_cep.js"></script>

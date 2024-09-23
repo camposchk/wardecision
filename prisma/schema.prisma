@@ -1,11 +1,10 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "sqlserver"
   url      = env("DATABASE_URL")
-  relationMode = "prisma"
-}
-
-generator client {
-  provider = "prisma-client-js"
 }
 
 model Contato {
@@ -38,10 +37,10 @@ model Decisao {
 model Empresa {
   ID            Int            @id @default(autoincrement())
   Nome          String
-  CNPJ          String         @db.VarChar(20)
+  CNPJ          String         @db.VarChar(20) @unique
   Possui_Filial Boolean
   Data_Abertura DateTime?
-  Codigo        String?        @db.VarChar(100)
+  Codigo        String          @db.VarChar(100) @unique
   Contato       Contato[]
   Dados_Treino  Dados_Treino[]
   Endereco      Endereco[]

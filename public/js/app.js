@@ -1,13 +1,3 @@
-function showError(fieldId, message) {
-  const errorField = document.getElementById(fieldId + 'Error');
-  if (message) {
-    errorField.textContent = message;
-    errorField.style.display = 'block';
-  } else {
-    errorField.style.display = 'none';
-  }
-}
-
 async function handleRegister(event) {
   event.preventDefault();
 
@@ -31,37 +21,31 @@ async function handleRegister(event) {
     confirmpassword: document.getElementById('confirmpassword').value,
   };
 
-  console.log(formRegData);
-
-  if (formRegData.password !== formRegData.confirmpassword) {
-    alert('As senhas não coincidem!');
-    return;
-  }
+  // console.log(formRegData);
+  const today = new Date();
+  const inputDate = new Date(formRegData.date);
 
   let errors = [];
 
   // Validações finais antes de enviar
-  if (formRegData.phoneCode.length !== 2) {
+  if (formRegData.phoneCode.length !== 3) 
     errors.push('O código telefônico deve ter exatamente 2 dígitos.');
-    showError('phoneCode', 'O código telefônico deve ter exatamente 2 dígitos.');
-  }
 
-  if (formRegData.CNPJ.length !== 14) {
+  if (formRegData.nameCompany.length < 3) 
+    errors.push('O nome da empresa não deve ter menos de 3 caracteres.');
+
+  if (formRegData.CNPJ.length !== 14) 
     errors.push('O CNPJ deve ter exatamente 14 dígitos.');
-    showError('cnpj', 'O CNPJ deve ter exatamente 14 dígitos.');
-  }
-
-  if (formRegData.CEP.length !== 8) {
+  
+  if (formRegData.CEP.length !== 8) 
     errors.push('O CEP deve ter exatamente 8 dígitos.');
-    showError('cep', 'O CEP deve ter exatamente 8 dígitos.');
-  }
 
-
-  if (formRegData.password !== formRegData.confirmpassword) {
-    alert('As senhas não coincidem!');
-    return;
-  }
-
+  if (inputDate > today) 
+    errors.push('A data de abertura não deve ser posterior ao dia atual');
+  
+  if (formRegData.password !== formRegData.confirmpassword) 
+    errors.push('As senhas não coincidem');
+  
   if (errors.length > 0) return;
 
   try {
@@ -83,7 +67,7 @@ async function handleRegister(event) {
 
     alert('Registro bem-sucedido!');
     // Redirecionar para a página principal
-    window.location.href = '/views/homepage.ejs';
+    window.location.href = `/home`;
   } catch (error) {
     alert(error.message);
   }
@@ -97,6 +81,8 @@ async function handleLogin(event) {
     password: document.getElementById('password').value,
   };
 
+  console.log(formLoginData);
+
   try {
     const response = await fetch('http://localhost:3000/api/login', {
       method: 'POST',
@@ -106,15 +92,19 @@ async function handleLogin(event) {
       body: JSON.stringify(formLoginData),
     });
 
+    console.log('Status HTTP:', response.status);
+
     if (!response.ok) {
-      throw new Error('Login falhou');
+      console.error('Erro retornado pelo servidor:', errorData);
+      throw new Error('Login falhou, tente inserir as credenciais novamente!');
     }
 
     const data = await response.json();
+    console.log('Resposta do servidor:', data);
     localStorage.setItem('token', data.token);
 
     alert('Login bem-sucedido!');
-    window.location.href = '/views/homepage.ejs';
+    window.location.href = `/home`;
   } catch (error) {
     console.error('Fetch error:', error);
     alert(error.message);

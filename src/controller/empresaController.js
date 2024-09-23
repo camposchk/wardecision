@@ -6,13 +6,10 @@ const empresaService = new EmpresaService();
 module.exports = {
 
   async registrarEmpresa(req, res) {
-    console.log(req.body);
+    //console.log(req.body);
 
     const data = req.body;
     try {
-
-      data.password = await hashPassword(data.password);
-
       const novaEmpresa = await empresaService.createEmpresa(data);
 
       const token = generateToken({ id: novaEmpresa.id, username: novaEmpresa.nameCompany });

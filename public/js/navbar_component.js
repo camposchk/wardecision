@@ -17,7 +17,7 @@ class Navbar extends HTMLElement {
                     <a class="nav-link active" aria-current="page" href="#"><h4 class="link">Home</h4></a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#"><h4 class="link">Predição</h4></a>
+                    <a class="nav-link" href="/list"><h4 class="link">Gerenciar</h4></a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#"><h4 class="link">Fale Conosco</h4></a>

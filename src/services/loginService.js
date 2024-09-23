@@ -1,4 +1,4 @@
-const { comparePassword, generateToken, hashPassword } = require('../config/auth');
+const { comparePassword, generateToken } = require('../config/auth');
 //prisma connection
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
@@ -16,20 +16,23 @@ class LoginService {
         console.log('Empresa encontrada:', empresa);
         console.log('Matriz encontrada:', empresa.Matriz);
 
-        if (!empresa || !empresa.Matriz) {
-            throw new Error('Login ou senha incorretos.');
-        }
+        // if (!senha || !empresa.Matriz.senha) {
+        //     throw new Error('Senha inválida.');
+        //   }
 
         console.log('Empresa:', empresa);  
-        console.log('Senha Matriz:', empresa?.Matriz?.Senha);  
-        const senhaCorreta = await comparePassword(senha, empresa.Matriz.Senha);
+        console.log('Senha Matriz:', empresa.Matriz.Senha);  
+
+        const senhaCorreta = await comparePassword(senha.trim(), empresa.Matriz.Senha);
+
+        console.log("variavel senha correta:",senhaCorreta)
 
         if (!senhaCorreta) {
             throw new Error('Código ou senha incorretos.');
         }
 
         const token = generateToken({ id: empresa.id, codigo: empresa.Codigo });
-
+            console.log(token, " --> TOKEN")
         return { empresa, token };
     }
 }

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Filial WD</title>
+
+    <link rel="icon" type="image" href="assets/logo.ico">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/registerpage.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <header>
+        <navbar-logout-component></navbar-logout-component>
+    </header>
+
+    <main>
+        <section class="section1">
+            <div class="title">
+                <p>REGISTRO DE FILIAL</p>
+            </div>
+
+            <div class="subtitle">
+                <h5>Bem-vindo ao sistema WarDecision! <br />
+                    Para garantir um cadastro correto e organizado, <br />
+                    siga as instruções abaixo:</h5>
+            </div>
+
+            <div class="content">
+                <h2 class="topic">1. Registro da Empresa Filial:</h2>
+                <ul>
+                    <li><strong>Início do Cadastro:</strong> O primeiro registro deve ser realizado pela empresa matriz
+                        (ou sede). A empresa matriz é responsável por criar e gerenciar o acesso ao sistema.</li>
+                    <li><strong>Código Único:</strong> Ao completar o registro da empresa matriz, você receberá um
+                        <strong>código único</strong> que identifica a sua empresa no sistema.
+                    </li>
+                    <li><strong>Senha Global:</strong> Durante o registro, você definirá uma <strong>senha
+                            global</strong>. Esta senha será usada para acesso administrativo e para o cadastro de
+                        filiais.</li>
+                </ul>
+                <p>Se precisar de assistência adicional, entre em contato com o suporte através do e-mail <a
+                        style="color: rgb(245, 123, 123);"
+                        href="mailto:assistence@wardec.com.br">assistence@wardec.com.br</a>.</p>
+
+                <p>Obrigado por escolher nosso sistema!</p>
+            </div>
+        </section>
+
+        <section class="section2">
+            <div class="box-container">
+                <div class="title-form-register">
+                    <h2>Cadastre sua Filial <span>Já</span></h2>
+                </div>
+                <form class="form" method="post" id="empresaForm">
+                    <label class="label-geral label-register" for="nameCompany">NOME DA EMPRESA
+                        <input type="text" class="register" placeholder="Nome da Empresa" name="nameCompany"
+                            id="nameCompany" required>
+                        <span id="nameCompanyError" class="error-message"></span>
+                    </label>
+
+                    <label class="label-geral label-register" for="CNPJ">CNPJ
+                        <input type="text" class="register" placeholder="CNPJ da organização" name="cnpj" id="cnpj"
+                            required>
+                        <span id="cnpjError" class="error-message"></span>
+                    </label>
+
+                    <label class="label-geral label-register" style="margin-top: 55px;" for="terms">
+                        <input class="checkbox-custom" type="checkbox" id="terms" name="terms" required>
+                        <label for="terms" style="margin-left: 10px;">
+                            Li e aceito os <a style="color: rgb(168, 0, 0);" href="/termos-condicoes"
+                                target="_blank">Termos e Condições</a> e a <a style="color: rgb(168, 0, 0);"
+                                href="/politica-privacidade" target="_blank">Política de Privacidade</a>
+                        </label>
+                    </label>
+
+                    <label class="label-geral label-register">
+                        <div class="btn-area-second">
+                            <button type="submit" class="btn-register btn-geral"
+                                value="REGISTRAR MATRIZ">REGISTRAR FILIAL</button>
+                        </div>
+                    </label>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <footer-component></footer-component>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/format.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/error.js"></script>
+    <script src="js/fetch_cep.js"></script>
+    <script src="js/complement_checkbox.js"></script>
+    <script src="js/navbar_logout_component.js"></script>
+    <script src="js/footer_component.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
