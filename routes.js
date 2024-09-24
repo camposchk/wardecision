@@ -3,7 +3,7 @@ const routes = express.Router();
 
 const empresa = require('./src/controller/empresaController');
 const login = require('./src/controller/loginController');
-const pred = require('./src/controller/predictionController');;
+const predictionController = require('./src/controller/predictionController');;
 const filial = require('./src/controller/filialController');
 const { authenticateToken } = require('./src/config/auth');  // Importe o middleware de autenticação
 
@@ -25,6 +25,5 @@ routes.put('/update-empresa/:id', authenticateToken, empresa.updateEmpresaById);
 routes.post('/predictions', predictionController.savePrediction);
 routes.get('/predictions/:id', predictionController.getPredictionById);
 routes.get('/predictions', predictionController.getAllPredictions);
-
 
 module.exports = routes;

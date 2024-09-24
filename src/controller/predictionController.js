@@ -2,45 +2,44 @@ const PredictionService = require('../services/predictionService');
 const predictionService = new PredictionService();
 
 module.exports = {
-  
-  // Endpoint para salvar a predição no banco de dados
-  async savePrediction(req, res) {
-    const data = req.body;
-    
-    try {
-      const savedPrediction = await predictionService.savePrediction(data);
 
-      res.status(201).json({
-        message: 'Predição salva com sucesso!',
-        prediction: savedPrediction,
-      });
+  // Método para salvar uma nova predição
+  async savePrediction(req, res) {
+    const data = req.body;  // Assumindo que QC e Saida vêm do body da requisição
+
+    try {
+      const novaDecisao = await predictionService.createDecisao(data);
+      res.status(201).json(novaDecisao);
     } catch (error) {
-      console.error('Erro ao salvar predição:', error.message);
+      console.error("Erro ao salvar predição:", error.message);
       res.status(400).json({ error: error.message });
     }
   },
 
-  // Endpoint para buscar uma predição pelo ID
+  // Método para buscar todas as predições
+  async getAllPredictions(req, res) {
+    try {
+      const decisoes = await predictionService.getAllDecisoes();
+      res.status(200).json(decisoes);
+    } catch (error) {
+      console.error("Erro ao buscar predições:", error.message);
+      res.status(500).json({ error: "Erro ao buscar predições" });
+    }
+  },
+
+  // Método para buscar uma predição por ID
   async getPredictionById(req, res) {
     const id = req.params.id;
 
     try {
-      const prediction = await predictionService.getPredictionById(id);
-
-      res.status(200).json(prediction);
+      const decisao = await predictionService.getDecisaoById(id);
+      if (!decisao) {
+        return res.status(404).json({ error: 'Predição não encontrada' });
+      }
+      res.status(200).json(decisao);
     } catch (error) {
-      res.status(404).json({ error: error.message });
-    }
-  },
-
-  // Endpoint para listar todas as predições
-  async getAllPredictions(req, res) {
-    try {
-      const predictions = await predictionService.getAllPredictions();
-
-      res.status(200).json(predictions);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
+      console.error("Erro ao buscar predição:", error.message);
+      res.status(500).json({ error: 'Erro ao buscar predição' });
     }
   },
 };

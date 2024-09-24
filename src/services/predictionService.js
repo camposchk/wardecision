@@ -2,52 +2,31 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 class PredictionService {
-  
-  // Cria uma nova predição no banco de dados
-  async savePrediction(data) {
-    try {
-      const { ID_Modelo_ML, Saida } = data;
+  // Método para criar uma nova decisão
+  async createDecisao(data) {
+    const decisaoData = {
+      QC: data.QC,
+      Data: new Date(),
+      Saida: data.Saida,
+    };
 
-      // Cria a predição com a data atual
-      const newPrediction = await prisma.decisao.create({
-        data: {
-          ID_Modelo_ML,
-          Saida,
-          Data: new Date(),
-        },
-      });
+    const novaDecisao = await prisma.decisao.create({
+      data: decisaoData,
+    });
 
-      return newPrediction;
-    } catch (error) {
-      throw new Error(`Erro ao salvar a predição: ${error.message}`);
-    }
+    return novaDecisao;
   }
 
-  // Busca uma predição pelo seu ID
-  async getPredictionById(id) {
-    try {
-      const prediction = await prisma.decisao.findUnique({
-        where: { ID: parseInt(id) },
-      });
-
-      if (!prediction) {
-        throw new Error('Predição não encontrada');
-      }
-
-      return prediction;
-    } catch (error) {
-      throw new Error(`Erro ao buscar a predição: ${error.message}`);
-    }
+  // Método para buscar todas as decisões
+  async getAllDecisoes() {
+    return prisma.decisao.findMany();
   }
 
-  // Lista todas as predições
-  async getAllPredictions() {
-    try {
-      const predictions = await prisma.decisao.findMany();
-      return predictions;
-    } catch (error) {
-      throw new Error(`Erro ao listar predições: ${error.message}`);
-    }
+  // Método para buscar decisão por ID
+  async getDecisaoById(id) {
+    return prisma.decisao.findUnique({
+      where: { ID: parseInt(id) },
+    });
   }
 }
 
