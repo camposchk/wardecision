@@ -136,16 +136,50 @@ function sendToAPI(data) {
         }
         return response.json();
     })
-    .then(data => {
-        console.log('Resposta da API:', data);
-        // Update the prediction screen
-        showPredictionScreen(data);
+    .then(apiResponse => {
+        console.log('Resposta da API:', apiResponse);
+        
+        // Após receber a predição, enviar para o servidor e salvar no banco
+        savePredictionToDatabase(apiResponse.result);
+
+        // Atualiza a tela de predição
+        showPredictionScreen(apiResponse);
     })
     .catch(error => {
         console.error('Erro:', error);
         alert('Erro: ' + error.message);
     });
 }
+
+// Função para salvar a predição no banco de dados
+function savePredictionToDatabase(predictionResult) {
+    const predictionData = {
+        ID_Modelo_ML: 1, // ID do modelo de machine learning (precisa ser dinâmico de acordo com a lógica do seu sistema)
+        Saida: predictionResult,
+    };
+
+    fetch('http://localhost:3000/api/predictions', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(predictionData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao salvar predição');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Predição salva no banco de dados:', data);
+    })
+    .catch(error => {
+        console.error('Erro ao salvar predição:', error.message);
+    });
+}
+
 
 function showPredictionScreen(apiResponse) {
     // Hide the fileDetails screen and show predDetails screen
