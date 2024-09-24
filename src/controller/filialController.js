@@ -4,6 +4,7 @@ const filialService = new FilialService();
 
 module.exports = {
   async registrarFilial(req, res) {
+    console.log(req.body);
     const data = req.body;
     try {
       const novaFilial = await filialService.createFilial(data);

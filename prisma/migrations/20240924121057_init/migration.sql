@@ -25,7 +25,7 @@ CREATE TABLE [dbo].[Dados_Treino] (
 -- CreateTable
 CREATE TABLE [dbo].[Decisao] (
     [ID] INT NOT NULL IDENTITY(1,1),
-    [ID_Modelo_ML] INT NOT NULL,
+    [QC] NVARCHAR(1000),
     [Data] DATETIME2 NOT NULL,
     [Saida] NVARCHAR(1000),
     CONSTRAINT [Decisao_pkey] PRIMARY KEY CLUSTERED ([ID])
@@ -38,8 +38,10 @@ CREATE TABLE [dbo].[Empresa] (
     [CNPJ] VARCHAR(20) NOT NULL,
     [Possui_Filial] BIT NOT NULL,
     [Data_Abertura] DATETIME2,
-    [Codigo] VARCHAR(100),
-    CONSTRAINT [Empresa_pkey] PRIMARY KEY CLUSTERED ([ID])
+    [Codigo] VARCHAR(100) NOT NULL,
+    CONSTRAINT [Empresa_pkey] PRIMARY KEY CLUSTERED ([ID]),
+    CONSTRAINT [Empresa_CNPJ_key] UNIQUE NONCLUSTERED ([CNPJ]),
+    CONSTRAINT [Empresa_Codigo_key] UNIQUE NONCLUSTERED ([Codigo])
 );
 
 -- CreateTable
@@ -89,9 +91,6 @@ ALTER TABLE [dbo].[Contato] ADD CONSTRAINT [Contato_ID_Empresa_fkey] FOREIGN KEY
 
 -- AddForeignKey
 ALTER TABLE [dbo].[Dados_Treino] ADD CONSTRAINT [Dados_Treino_ID_Empresa_fkey] FOREIGN KEY ([ID_Empresa]) REFERENCES [dbo].[Empresa]([ID]) ON DELETE NO ACTION ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE [dbo].[Decisao] ADD CONSTRAINT [Decisao_ID_Modelo_ML_fkey] FOREIGN KEY ([ID_Modelo_ML]) REFERENCES [dbo].[Modelo_Machine_Learning]([ID]) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE [dbo].[Endereco] ADD CONSTRAINT [Endereco_ID_Empresa_fkey] FOREIGN KEY ([ID_Empresa]) REFERENCES [dbo].[Empresa]([ID]) ON DELETE NO ACTION ON UPDATE CASCADE;

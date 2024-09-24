@@ -28,10 +28,9 @@ model Dados_Treino {
 
 model Decisao {
   ID                      Int                     @id @default(autoincrement())
-  ID_Modelo_ML            Int
+  QC                      String?
   Data                    DateTime
   Saida                   String?
-  Modelo_Machine_Learning Modelo_Machine_Learning @relation(fields: [ID_Modelo_ML], references: [ID])
 }
 
 model Empresa {
@@ -46,7 +45,6 @@ model Empresa {
   Endereco      Endereco[]
   Filial        Filial[]
   Matriz        Matriz?
-  
 }
 
 model Endereco {
@@ -83,6 +81,5 @@ model Modelo_Machine_Learning {
   ID_Dados     Int
   Data         DateTime
   Parametros   String?
-  Decisao      Decisao[]
   Dados_Treino Dados_Treino @relation(fields: [ID_Dados], references: [ID])
 }

@@ -111,9 +111,78 @@ async function handleLogin(event) {
   }
 }
 
+async function handleRegisterFilial(event) {
+  event.preventDefault();
+
+  const formRegData = {
+    nameCompany: document.getElementById('nameCompany').value,
+    CNPJ: document.getElementById('cnpj').value,
+    CEP: document.getElementById('cep').value,
+    country: document.getElementById('country').value,
+    state: document.getElementById('state').value,
+    city: document.getElementById('city').value,
+    street: document.getElementById('street').value,
+    neighborhood: document.getElementById('neighborhood').value,
+    number: document.getElementById('number').value,
+    complement: document.getElementById('complement').value,
+    date: document.getElementById('date').value,
+    phoneCode: document.getElementById('phoneCode').value,
+    phone: document.getElementById('phone').value,
+    email: document.getElementById('email').value,
+  };
+
+  // console.log(formRegData);
+  const today = new Date();
+  const inputDate = new Date(formRegData.date);
+
+  let errors = [];
+
+  // Validações finais antes de enviar
+  if (formRegData.phoneCode.length !== 3) 
+    errors.push('O código telefônico deve ter exatamente 2 dígitos.');
+
+  if (formRegData.nameCompany.length < 3) 
+    errors.push('O nome da empresa não deve ter menos de 3 caracteres.');
+
+  if (formRegData.CNPJ.length !== 14) 
+    errors.push('O CNPJ deve ter exatamente 14 dígitos.');
+  
+  if (formRegData.CEP.length !== 8) 
+    errors.push('O CEP deve ter exatamente 8 dígitos.');
+
+  if (inputDate > today) 
+    errors.push('A data de abertura não deve ser posterior ao dia atual');
+  
+  if (errors.length > 0) return;
+
+  try {
+    const response = await fetch('http://localhost:3000/api/add-filial', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formRegData),
+    });
+
+    console.log(response)
+
+    if (!response.ok)
+      throw new Error('Não foi possível registrar, tente novamente!');
+
+    const data = await response.json();
+
+    alert('Registro de Filial bem-sucedido!');
+    // Redirecionar para a página principal
+    window.location.href = `/home`;
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+
 document.getElementById('formLogin').addEventListener('submit', handleLogin);
 document.getElementById('empresaForm').addEventListener('submit', handleRegister);
-
+document.getElementById('filialForm').addEventListener('submit', handleRegisterFilial);
 
 
 

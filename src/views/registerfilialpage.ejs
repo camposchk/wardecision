@@ -65,7 +65,7 @@
                 <div class="title-form-register">
                     <h2>Cadastre sua Filial <span>Já</span></h2>
                 </div>
-                <form class="form" method="post" id="empresaForm">
+                <form class="form" method="post" id="filialForm">
                     <label class="label-geral label-register" for="nameCompany">NOME DA EMPRESA
                         <input type="text" class="register" placeholder="Nome da Empresa" name="nameCompany"
                             id="nameCompany" required>
@@ -76,6 +76,75 @@
                         <input type="text" class="register" placeholder="CNPJ da organização" name="cnpj" id="cnpj"
                             required>
                         <span id="cnpjError" class="error-message"></span>
+                    </label>
+
+                    <label class="label-geral label-register" for="CEP">CEP
+                        <input type="text" class="register" placeholder="CEP da organização" name="cep" id="cep"
+                            required>
+                        <span id="cepError" class="error-message"></span>
+                    </label>
+
+                    <div class="form_row">
+                        <label class="label-geral label-register" for="country">PAÍS
+                            <input type="text" class="register" placeholder="País" name="country" id="country" required>
+                        </label>
+
+                        <label class="label-geral label-register" for="state">ESTADO
+                            <input type="text" class="register" placeholder="Estado" name="state" id="state" required>
+                        </label>
+                    </div>
+
+                    <div class="form_row">
+                        <label class="label-geral label-register" for="city">CIDADE
+                            <input type="text" class="register" placeholder="Cidade" name="city" id="city" required>
+                        </label>
+
+                        <label class="label-geral label-register" for="neighborhood">BAIRRO
+                            <input type="text" class="register" placeholder="Bairro" name="neighborhood"
+                                id="neighborhood" required>
+                        </label>
+                    </div>
+
+                    <label class="label-geral label-register" for="street">LOGRADOURO
+                        <input type="text" class="register" placeholder="Logradouro" name="street" id="street" required>
+                    </label>
+
+
+                    <label class="label-geral label-register" for="number">NÚMERO
+                        <input type="text" class="register" placeholder="Número" name="number" id="number" required>
+                    </label>
+
+
+                    <label class="label-geral label-register" for="complement">COMPLEMENTO
+                        <input type="text" class="register" placeholder="Complemento" name="complement"
+                            id="complement" />
+                        <label class="label-geral label-register">
+                            <input class="checkbox-custom" type="checkbox" id="semComplemento"> <label> Não desejo
+                                inserir complemento </label>
+                        </label>
+                    </label>
+
+                    <label class="label-geral label-register" for="date">DATA ABERTURA
+                        <input type="date" class="register" placeholder="Selecione" name="date" id="date" required>
+                        <span id="dateError" class="error-message"></span>
+                    </label>
+
+                    <div class="form_row">
+                        <label class="label-geral label-register" for="phoneCode">CTI
+                            <input type="text" class="register" placeholder="+55" name="phoneCode" id="phoneCode"
+                                required>
+                            <span id="phoneCodeError" class="error-message"></span>
+                        </label>
+
+                        <label class="label-geral label-register" for="phone">TELEFONE
+                            <input type="tel" class="register" placeholder="41 99999999" name="phone" id="phone"
+                                required>
+                        </label>
+                    </div>
+
+                    <label class="label-geral label-register" for="email">EMAIL
+                        <input type="text" class="register" placeholder="emailorganizacao@email.com" name="email"
+                            id="email" required>
                     </label>
 
                     <label class="label-geral label-register" style="margin-top: 55px;" for="terms">
@@ -89,8 +158,8 @@
 
                     <label class="label-geral label-register">
                         <div class="btn-area-second">
-                            <button type="submit" class="btn-register btn-geral"
-                                value="REGISTRAR MATRIZ">REGISTRAR FILIAL</button>
+                            <button type="submit" onclick="handleRegisterFilial(event)" class="btn-register btn-geral"
+                                value="REGISTRAR FILIAL">REGISTRAR FILIAL</button>
                         </div>
                     </label>
                 </form>
