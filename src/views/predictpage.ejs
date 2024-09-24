@@ -14,11 +14,10 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-     <!-- Fonts -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-     <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
- 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
 
 </head>
 <body>
@@ -55,8 +54,9 @@
         <section class="section2" style="display: flex; justify-content: center; align-items: center">
             <form id="preverForm" onsubmit="handleSubmit(event)">
                 <div class="divbox">
-                    <div class="dropzone">
-                        <div style="display: flex; align-items: center; flex-direction: column" id="dropZone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" ondragleave="dragLeaveHandler(event)" onclick="openFileDialog()">
+                    <!-- First screen: Dropzone -->
+                    <div class="dropzone" id="dropZone">
+                        <div style="display: flex; align-items: center; flex-direction: column" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" ondragleave="dragLeaveHandler(event)" onclick="openFileDialog()">
                             <h1 style="color: white; font-weight: 700; margin-top: 4.12rem">ARRASTE A PLANILHA AQUI</h1>
                             <svg xmlns="http://www.w3.org/2000/svg" width="166" height="166" viewBox="0 0 166 166" fill="none" style="margin-top: 10.88rem;">
                                 <circle cx="83" cy="83" r="75" fill="#77181E" fill-opacity="0.7"/>
@@ -65,6 +65,8 @@
                             </svg>
                         </div>
                     </div>
+
+                    <!-- Second screen: File Details -->
                     <div id="fileDetails" style="display: none;">
                         <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; margin-top: 3.88rem">
                             <h2 style="color: white; font-weight: 700;">QC:</h2>
@@ -79,6 +81,14 @@
                         </div>
                         <div style="display: flex; justify-content: center; align-items: center; margin-top: 5rem">
                             <input type="submit" class="btn-login btn-geral" value="PREVER"/>
+                        </div>
+                    </div>
+
+                    <!-- Third screen: Prediction Details (hidden initially) -->
+                    <div id="predDetails" style="display: none;">
+                        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 3.88rem;">
+                            <h1 style="color: white;">PREVISÃO</h1>
+                            <h1 style="color: white; font-size: 150px">B</h1> <!-- This H1 will be updated with the API response -->
                         </div>
                     </div>
                 </div>

@@ -111,9 +111,6 @@ function handleSubmit(event) {
     reader.readAsArrayBuffer(selectedFile);
 }
 
-
-
-
 function sendToAPI(data) {
     const url = 'http://localhost:3000/proxy';  // Agora aponta para o proxy
 
@@ -141,11 +138,21 @@ function sendToAPI(data) {
     })
     .then(data => {
         console.log('Resposta da API:', data);
-        alert('Resposta da API: ' + JSON.stringify(data));
+        // Update the prediction screen
+        showPredictionScreen(data);
     })
     .catch(error => {
         console.error('Erro:', error);
         alert('Erro: ' + error.message);
     });
+}
+
+function showPredictionScreen(apiResponse) {
+    // Hide the fileDetails screen and show predDetails screen
+    document.getElementById('fileDetails').style.display = 'none';
+    document.getElementById('predDetails').style.display = 'block';
+
+    // Update the H1 text with the API response
+    document.querySelector('#predDetails h1:nth-child(2)').textContent = apiResponse.result; // Adjust this according to your API response structure
 }
 
