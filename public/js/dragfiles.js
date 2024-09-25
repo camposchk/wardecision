@@ -91,7 +91,9 @@ function handleSubmit(event) {
         const filteredData = jsonData.filter(row => row['QC'] == qcValue);
         if (filteredData.length > 0) {
             let rowData = { ...filteredData[0] };
-            delete rowData['QC']; // Remove the 'QC' column from the data
+            const qcString = rowData['QC']; // Captura o valor de QC
+
+            delete rowData['QC']; // Remove a coluna 'QC' do rowData
 
             // Substitui valores vazios ou indefinidos por null e troca '.' por '_'
             rowData = Object.fromEntries(
@@ -102,7 +104,14 @@ function handleSubmit(event) {
             );
 
             console.log("Filtered Data (with null values and modified keys):", rowData);
-            sendToAPI(rowData);
+
+            // Adiciona a string 'QC' aos dados enviados para a API
+            const dataToSend = {
+                QC: qcString,  // A string que estava na coluna 'QC'
+                ...rowData     // Os outros dados processados
+            };
+
+            sendToAPI(dataToSend);
         } else {
             alert("Nenhuma linha encontrada para o QC fornecido.");
         }
@@ -110,6 +119,7 @@ function handleSubmit(event) {
 
     reader.readAsArrayBuffer(selectedFile);
 }
+
 
 function sendToAPI(data) {
     const url = 'http://localhost:3000/proxy';  // Agora aponta para o proxy
