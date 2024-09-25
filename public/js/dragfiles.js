@@ -140,7 +140,7 @@ function sendToAPI(data) {
         console.log('Resposta da API:', apiResponse);
         
         // Após receber a predição, enviar para o servidor e salvar no banco
-        savePredictionToDatabase(apiResponse.result);
+        savePredictionToDatabase(apiResponse, data); // Passa a predição e o QC para salvar no banco
 
         // Atualiza a tela de predição
         showPredictionScreen(apiResponse);
@@ -151,11 +151,12 @@ function sendToAPI(data) {
     });
 }
 
+
 // Função para salvar a predição no banco de dados
-function savePredictionToDatabase(predictionResult) {
+function savePredictionToDatabase(apiResponse, qc) {
     const predictionData = {
-        ID_Modelo_ML: 1, // ID do modelo de machine learning (precisa ser dinâmico de acordo com a lógica do seu sistema)
-        Saida: predictionResult,
+        QC: qc,  // Valor do QC que foi enviado na predição
+        Saida: apiResponse.result // O resultado retornado da API
     };
 
     fetch('http://localhost:3000/api/predictions', {
@@ -164,7 +165,7 @@ function savePredictionToDatabase(predictionResult) {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(predictionData)
+        body: JSON.stringify(predictionData)  // Envia os dados corretos para salvar no banco
     })
     .then(response => {
         if (!response.ok) {
@@ -179,6 +180,7 @@ function savePredictionToDatabase(predictionResult) {
         console.error('Erro ao salvar predição:', error.message);
     });
 }
+
 
 
 function showPredictionScreen(apiResponse) {

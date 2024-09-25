@@ -5,10 +5,10 @@ module.exports = {
 
   // Método para salvar uma nova predição
   async savePrediction(req, res) {
-    const data = req.body;  // Assumindo que QC e Saida vêm do body da requisição
+    const { QC, Saida } = req.body;  // Recebe QC e Saida do corpo da requisição
 
     try {
-      const novaDecisao = await predictionService.createDecisao(data);
+      const novaDecisao = await predictionService.createDecisao({ QC, Saida });
       res.status(201).json(novaDecisao);
     } catch (error) {
       console.error("Erro ao salvar predição:", error.message);

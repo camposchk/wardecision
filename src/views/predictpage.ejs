@@ -68,20 +68,22 @@
 
                     <!-- Second screen: File Details -->
                     <div id="fileDetails" style="display: none;">
-                        <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; margin-top: 3.88rem">
-                            <h2 style="color: white; font-weight: 700;">QC:</h2>
-                            <input type="text" id="qcInput" class="inputstyle" required>
-                        </div>
-                        <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; margin-top: 13.31rem">
-                            <img src="/assets/excel.png" alt="" style="width: 36px; height: 36px;">
-                            <h1 id="fileName" style="color: white; margin-left: 10px; margin-right: 10px"></h1>
-                            <button type="button" onclick="openFileDialog()" style="background: none; border: none; padding: 0; margin: 0;">
-                                <img src="/assets/edit.png" alt="Edit" style="width: 15px; height: 15px; cursor: pointer;">
-                            </button>
-                        </div>
-                        <div style="display: flex; justify-content: center; align-items: center; margin-top: 5rem">
-                            <input type="submit" class="btn-login btn-geral" value="PREVER"/>
-                        </div>
+                        <form id="predictForm">
+                            <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; margin-top: 3.88rem">
+                                <h2 style="color: white; font-weight: 700;">QC:</h2>
+                                <input type="text" id="qcInput" class="inputstyle" required>
+                            </div>
+                            <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; margin-top: 13.31rem">
+                                <img src="/assets/excel.png" alt="" style="width: 36px; height: 36px;">
+                                <h1 id="fileName" style="color: white; margin-left: 10px; margin-right: 10px"></h1>
+                                <button type="button" onclick="openFileDialog()" style="background: none; border: none; padding: 0; margin: 0;">
+                                    <img src="/assets/edit.png" alt="Edit" style="width: 15px; height: 15px; cursor: pointer;">
+                                </button>
+                            </div>
+                            <div style="display: flex; justify-content: center; align-items: center; margin-top: 5rem">
+                                <input type="submit" class="btn-login btn-geral" value="PREVER"/>
+                            </div>
+                        </form>
                     </div>
 
                     <!-- Third screen: Prediction Details (hidden initially) -->
@@ -102,5 +104,31 @@
     <script src="js/dragfiles.js"></script>
     <script src="js/navbar_component.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        document.getElementById("preverForm").addEventListener("submit", async (e) => {
+          e.preventDefault();
+      
+          const QC = document.getElementById("QC").value;
+      
+          try {
+            const response = await fetch('/prever', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ QC })
+            });
+      
+            const result = await response.json();
+            if (response.ok) {
+              console.log("Predição salva com sucesso:", result);
+            } else {
+              console.error("Erro ao salvar predição:", result.error);
+            }
+          } catch (error) {
+            console.error("Erro ao salvar predição:", error);
+          }
+        });
+      </script>
 </body>
 </html>
