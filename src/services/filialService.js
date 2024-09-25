@@ -4,10 +4,11 @@ const prisma = new PrismaClient();
 
 class FilialService {
   async createFilial(data) {
-    console.log(data)
+    console.log(data);
+    const idEmpresa = Number(data.ID_Empresa);
     const empresaExists = await prisma.empresa.findFirst({
       where: {
-        ID: data.ID_Empresa,
+        ID: idEmpresa,
       },
     });
 
@@ -43,7 +44,7 @@ class FilialService {
             Email: data.email
           }]
         } : undefined,
-      Filiais: {
+      Filial: {
         create: {
           E_filial: true,
           Codigo: uniqueCode
@@ -54,11 +55,21 @@ class FilialService {
     // Log para depuração
     console.log("Dados para criação de filial:", filialData);
 
-    const createFilial = await prisma.filial.create({
+    const createFilial = await prisma.empresa.update({
       where: {
-        ID: data.ID_Empresa,
+        ID: Number(data.ID_Empresa), // Referencia a empresa correta
       },
-      data: filialData,
+      data: {
+        Filial: {
+          create: {
+            E_filial: true,
+            Codigo: uniqueCode
+          }
+        }
+      },
+      include: {
+        Filial: true, // Inclui as informações da filial na resposta
+      }
     });
 
     return createFilial;
