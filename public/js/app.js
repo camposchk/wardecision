@@ -100,7 +100,11 @@ async function handleLogin(event) {
     }
 
     const data = await response.json();
-    console.log('Resposta do servidor:', data);
+    
+    //console.log('Resposta do servidor:', data);
+    //console.log("empresa", data.empresa)
+    //console.log("ID da empresa", data.empresa.ID)
+    localStorage.setItem('empresaID', data.empresa.ID);
     localStorage.setItem('token', data.token);
 
     alert('Login bem-sucedido!');
@@ -113,7 +117,6 @@ async function handleLogin(event) {
 
 async function handleRegisterFilial(event) {
   event.preventDefault();
-
   const formRegData = {
     nameCompany: document.getElementById('nameCompany').value,
     CNPJ: document.getElementById('cnpj').value,
@@ -130,6 +133,15 @@ async function handleRegisterFilial(event) {
     phone: document.getElementById('phone').value,
     email: document.getElementById('email').value,
   };
+
+  const empresaID = localStorage.getItem("empresaID");
+  console.log(empresaID)
+  if(!empresaID) {
+    alert('ID de Empresa não encontrado. Faça o login novamente!');
+    return;
+  }
+
+  formRegData.ID_Empresa = empresaID;
 
   // console.log(formRegData);
   const today = new Date();
