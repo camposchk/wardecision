@@ -44,7 +44,7 @@ class FilialService {
             Email: data.email
           }]
         } : undefined,
-      Filiais: {
+      Filial: {
         create: {
           E_filial: true,
           Codigo: uniqueCode
@@ -60,7 +60,7 @@ class FilialService {
         ID: Number(data.ID_Empresa), // Referencia a empresa correta
       },
       data: {
-        Filiais: {
+        Filial: {
           create: {
             E_filial: true,
             Codigo: uniqueCode
@@ -68,7 +68,7 @@ class FilialService {
         }
       },
       include: {
-        Filiais: true, // Inclui as informações da filial na resposta
+        Filial: true, // Inclui as informações da filial na resposta
       }
     });
 
