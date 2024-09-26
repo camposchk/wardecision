@@ -199,6 +199,7 @@ function showPredictionScreen(apiResponse) {
     document.getElementById('predDetails').style.display = 'block';
 
     // Update the H1 text with the API response
-    document.querySelector('#predDetails h1:nth-child(2)').textContent = apiResponse.result; // Adjust this according to your API response structure
+    document.getElementById('predictionResult').textContent = apiResponse;
+
 }
 
