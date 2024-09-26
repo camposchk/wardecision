@@ -25,6 +25,7 @@ class FilialService {
       CNPJ: data.CNPJ,
       Data_Abertura: dataAbertura,
       Codigo: uniqueCode,
+      Possui_Filial: false,
       Endereco: data.CEP ? {
         create: [{
           CEP: data.CEP,
@@ -55,24 +56,25 @@ class FilialService {
     // Log para depuração
     console.log("Dados para criação de filial:", filialData);
 
-    const createFilial = await prisma.empresa.update({
-      where: {
-        ID: Number(data.ID_Empresa), // Referencia a empresa correta
-      },
-      data: {
-        Filial: {
-          create: {
-            E_filial: true,
-            Codigo: uniqueCode
-          }
-        }
-      },
-      include: {
-        Filial: true, // Inclui as informações da filial na resposta
-      }
+    // 3. Criar nova empresa (filial)
+    const novaEmpresaFilial = await prisma.empresa.create({
+      data: filialData,
     });
 
-    return createFilial;
+    // 4. Associar a nova empresa à matriz existente na tabela de filiais
+    const createFilial = await prisma.filial.create({
+      data: {
+        ID_Empresa: novaEmpresaFilial.ID, // ID da nova empresa (filial)
+        E_filial: true,
+        Codigo: uniqueCode,
+        Empresa: { connect: { ID: idEmpresa } }, // Conecta a filial à matriz
+      },
+    });
+
+    return {
+      matriz: empresaMatriz,
+      filial: novaEmpresaFilial,
+    };
   }
 
   async getFilialById(id) {
