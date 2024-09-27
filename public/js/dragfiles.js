@@ -107,11 +107,14 @@ function handleSubmit(event) {
 
             // Adiciona a string 'QC' aos dados enviados para a API
             const dataToSend = {
-                QC: qcString,  // A string que estava na coluna 'QC'
                 ...rowData     // Os outros dados processados
             };
 
-            sendToAPI(dataToSend);
+            const QCToSend = {
+                QC: qcString
+            }
+
+            sendToAPI(dataToSend, QCToSend);
         } else {
             alert("Nenhuma linha encontrada para o QC fornecido.");
         }
@@ -121,7 +124,7 @@ function handleSubmit(event) {
 }
 
 
-function sendToAPI(data) {
+function sendToAPI(data, qc) {
     const url = 'http://localhost:3000/proxy';  // Agora aponta para o proxy
 
     const requestData = {
@@ -150,7 +153,7 @@ function sendToAPI(data) {
         console.log('Resposta da API:', apiResponse);
         
         // Após receber a predição, enviar para o servidor e salvar no banco
-        savePredictionToDatabase(apiResponse, data); // Passa a predição e o QC para salvar no banco
+        savePredictionToDatabase(apiResponse, qc); // Passa a predição e o QC para salvar no banco
 
         // Atualiza a tela de predição
         showPredictionScreen(apiResponse);
