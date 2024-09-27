@@ -42,7 +42,7 @@
 
         <section class="section2">
             <div class="cards" id="cards-container">
-               
+
             </div>
         </section>
 
@@ -58,13 +58,13 @@
                         <h3 class="text-center mx-auto">Remover uma Filial</h3>
                         <form>
                             <div class="col-6 mt-5 mx-auto desc-modal">
-                                <label for="confirmation" class="form-label text-center remove-label">
-                                    <input type="text" class="input-confirm-delete mb-2" name="confirmation" value="DIGITE APAGAR">
-                                </label>
+                                <label for="delete_confiramtion" class="form-label">Digite "APAGAR" para confirmar a
+                                    remoção da Filial</label>
+                                <input type="text" id="delete_confiramtion" class="form-control mb-2" required>
                             </div>
                             <div class="col-6 my-5 mx-auto button-modal-confirm">
                                 <button class="btn btn-danger mx-auto btn-lg">
-                                    <button type="submit">Confirmar</button>
+                                    Confirmar
                                 </button>
                             </div>
                         </form>
@@ -84,12 +84,12 @@
                     <div class="modal-body">
                         <h3 class="text-center mx-auto">Editar uma Filial</h3>
                         <form>
-                            <div class="col-6 mt-5 mx-auto desc-modal">
+                            <div class="col-6 mt-5 mb-5 mx-auto desc-modal">
                                 <label for="edit_filial_name" class="form-label">Nome da Filial</label>
                                 <input type="text" id="edit_filial_name" class="form-control mb-2" required>
                             </div>
                             <div class="col-6 mx-auto button-modal-confirm">
-                                <button type="submit" class="btn btn-danger mx-auto btn-lg">
+                                <button type="submit" class="btn btn-danger mx-auto btn-lg" onclick="submitEdit(event)">
                                     Confirmar
                                 </button>
                             </div>
@@ -149,15 +149,58 @@
         // Chama a função quando a página carrega
         window.onload = fetchFiliais;
 
-        // Funções para editar e deletar filiais (você vai implementar essas funcionalidades)
-        function editFilial(id) {
-            // Lógica para editar a filial
-            console.log('Editar filial ID:', id);
+        // Função para submeter as edições
+        async function submitEdit(event) {
+            event.preventDefault(); // Previne o comportamento padrão do form
+
+            const id = document.getElementById('edit_filial_id').value;
+            const nome = document.getElementById('edit_filial_name').value;
+
+            const updatedFilial = {
+                Nome: nome,
+            };
+
+            try {
+                const response = await fetch(`http://localhost:3000/api/filiais/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updatedFilial),
+                });
+
+                if (response.ok) {
+                    alert('Filial editada com sucesso');
+                    // Recarrega a lista de filiais após a edição
+                    fetchFiliais();
+                } else {
+                    alert('Erro ao editar filial');
+                }
+            } catch (error) {
+                console.error('Erro ao editar filial:', error);
+                alert('Erro ao editar filial');
+            }
         }
 
-        function deleteFilial(id) {
-            // Lógica para deletar a filial
-            console.log('Deletar filial ID:', id);
+        async function confirmDelete(event) {
+            event.preventDefault(); // Previne o comportamento padrão do form
+            const id = document.getElementById('delete_filial_id').value;
+            try {
+                const response = await fetch(`http://localhost:3000/filiais/${id}`, {
+                    method: 'DELETE',
+                });
+
+                if (response.ok) {
+                    alert('Filial deletada com sucesso');
+                    // Recarrega a lista de filiais após a exclusão
+                    fetchFiliais();
+                } else {
+                    alert('Erro ao deletar filial');
+                }
+            } catch (error) {
+                console.error('Erro ao deletar filial:', error);
+                alert('Erro ao deletar filial');
+            }
         }
     </script>
 

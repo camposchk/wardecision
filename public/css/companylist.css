@@ -88,6 +88,30 @@ main {
     width: 100%;
 }
 
+input[disabled] {
+    background-color: #0000006b;
+    cursor: not-allowed;
+  }
+
+.label-register {
+    width: 90%;
+    margin-top: 25px;
+    color: #313131;
+}
+ 
+input::placeholder {
+    color: var(--cinza-secundario);
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+}
+
+input:focus,
+input:hover {
+    outline: #F5F5F5;
+    border: 1px solid #F5F5F5;
+}
+
 @media (width > 1024px) {
  
 }
