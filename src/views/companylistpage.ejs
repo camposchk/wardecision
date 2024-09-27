@@ -104,11 +104,11 @@
 
         async function fetchFiliais() {
             try {
-                const response = await fetch('http://localhost:3000/api/filiais'); // Use a URL correta para seu backend
+                const response = await fetch('http://localhost:3000/api/filiais'); 
                 const filiais = await response.json();
 
                 const cardsContainer = document.getElementById('cards-container');
-                cardsContainer.innerHTML = ''; // Limpa o conteúdo atual
+                cardsContainer.innerHTML = ''; 
 
                 filiais.forEach(filial => {
                     const cardHTML = `
@@ -137,8 +137,6 @@
                     </div>
                 </div>
             `;
-
-                    // Insere o card no container de cards
                     cardsContainer.innerHTML += cardHTML;
                 });
             } catch (error) {
@@ -146,12 +144,10 @@
             }
         }
 
-        // Chama a função quando a página carrega
         window.onload = fetchFiliais;
 
-        // Função para submeter as edições
         async function submitEdit(event) {
-            event.preventDefault(); // Previne o comportamento padrão do form
+            event.preventDefault(); 
 
             const id = document.getElementById('edit_filial_id').value;
             const nome = document.getElementById('edit_filial_name').value;
@@ -171,7 +167,7 @@
 
                 if (response.ok) {
                     alert('Filial editada com sucesso');
-                    // Recarrega a lista de filiais após a edição
+             
                     fetchFiliais();
                 } else {
                     alert('Erro ao editar filial');
@@ -183,7 +179,7 @@
         }
 
         async function confirmDelete(event) {
-            event.preventDefault(); // Previne o comportamento padrão do form
+            event.preventDefault(); 
             const id = document.getElementById('delete_filial_id').value;
             try {
                 const response = await fetch(`http://localhost:3000/filiais/${id}`, {
@@ -192,7 +188,7 @@
 
                 if (response.ok) {
                     alert('Filial deletada com sucesso');
-                    // Recarrega a lista de filiais após a exclusão
+                   
                     fetchFiliais();
                 } else {
                     alert('Erro ao deletar filial');
