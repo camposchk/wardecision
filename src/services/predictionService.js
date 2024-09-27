@@ -5,7 +5,7 @@ class PredictionService {
   // Método para criar uma nova decisão
   async createDecisao(data) {
     const decisaoData = {
-      QC: data.QC,
+      QC: data.QC.toString(),
       Data: new Date(),
       Saida: data.Saida,
     };
