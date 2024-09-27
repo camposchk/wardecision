@@ -202,7 +202,7 @@ function showPredictionScreen(apiResponse) {
     document.getElementById('predDetails').style.display = 'block';
 
     // Update the H1 text with the API response
-    document.getElementById('predictionResult').textContent = apiResponse.result;
+    document.getElementById('predictionResult').textContent = apiResponse.Results;
 
 }
 
