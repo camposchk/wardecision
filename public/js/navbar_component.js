@@ -3,7 +3,7 @@ class Navbar extends HTMLElement {
       this.innerHTML = `
       <nav class=" nav navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
-            <a class="navbar-brand" href="/"><img src="assets/logo.png"></a>
+            <a class="navbar-brand" href="/home"><img src="assets/logo.png"></a>
       
               <button class="navbar-toggler custom-toggler-margin" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -14,7 +14,7 @@ class Navbar extends HTMLElement {
 
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#"><h4 class="link">Home</h4></a>
+                    <a class="nav-link active" aria-current="page" href="/home"><h4 class="link">Home</h4></a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="/list"><h4 class="link">Gerenciar</h4></a>
