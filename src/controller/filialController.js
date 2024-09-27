@@ -31,6 +31,16 @@ module.exports = {
     }
   },
 
+  async getAllFilials(req, res) {
+    try {
+      const filiais = await filialService.getAllFiliais();
+      res.status(200).json(filiais);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({error: 'Erro ao buscar Filiais'})
+    }
+  },
+
   async updateFilialById(req, res) {
     const id = req.params.id;
     const data = req.body;

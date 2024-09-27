@@ -17,6 +17,9 @@ routes.post('/add-filial', filial.registrarFilial);
 // Rota para login (não autenticada)
 routes.post('/login', login.login);
 
+// Rota para listar empresas filiais
+routes.get('/filiais', filial.getAllFilials);
+
 // Rotas protegidas (autenticadas)
 routes.get('/empresa/:id', authenticateToken, empresa.getEmpresaById);
 routes.delete('/remove-empresa/:id', authenticateToken, empresa.deleteEmpresaById);

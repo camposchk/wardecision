@@ -34,38 +34,15 @@
             <div class="search-area">
                 <form class="form-inline">
                     <input id="Search" onkeyup="searchFunction()" class="search" type="search"
-                    placeholder="Pesquisar Filiais" aria-label="Search">
+                        placeholder="Pesquisar Filiais" aria-label="Search">
                     <button class="btn-search" type="button"><i class="bi bi-search"></i></button>
                 </form>
             </div>
         </section>
 
         <section class="section2">
-            <div class="cards">
-                <div class="card-body">
-                    <div style="display: flex; flex-direction: row">
-                        <div style="display: flex; flex-direction: column">
-                            <h2 style="margin-left: 2rem; color: white; margin-top: 1rem;">Nome</h2>
-                            <h3 style="margin-left: 2rem; color: #DEE7E7;">A</h3>
-                        </div>
-                        <div style="width: 2px; height: 69px; background-color: white; margin-top: 1.5rem; margin-left: 3rem"></div>
-                        <div style="display: flex; flex-direction: column">
-                            <h2 style="margin-left: 1rem; color: white; margin-top: 1rem;">País</h2>
-                            <h3 style="margin-left: 1rem; color: #DEE7E7;">B</h3>
-                        </div>
-                        <div style="width: 2px; height: 69px; background-color: white; margin-top: 1.5rem; margin-left: 3rem"></div>
-                        <div style="display: flex; flex-direction: column">
-                            <h2 style="margin-left: 1rem; color: white; margin-top: 1rem;">Estado</h2>
-                            <h3 style="margin-left: 1rem; color: #DEE7E7;">C</h3>
-                        </div>
-                        <div class="btn-area" style="display: flex; align-items: center;">
-                            <button type="button" class="btn-second btn-leave">Editar</button>
-                        </div>
-                        <div class="btn-area" style="display: flex; align-items: center;">
-                            <button type="button" class="btn-geral btn-leave">Deletar</button>
-                        </div>
-                    </div>
-                </div>
+            <div class="cards" id="cards-container">
+               
             </div>
         </section>
 
@@ -81,22 +58,13 @@
                         <h3 class="text-center mx-auto">Remover uma Filial</h3>
                         <form>
                             <div class="col-6 mt-5 mx-auto desc-modal">
-                                <label for="senha" class="form-label text-center remove-label">
-                                    <input type="text" class="nome-hardware mb-2" name="user_name"
-                                        value="Nome: {{user.name}}" readonly>
-                                    <input type="text" class="nome-hardware mb-2" name="user_nickname"
-                                        value="Usuário: {{user.nickname}}" readonly>
-                                    <input type="email" class="nome-hardware mb-2" name="user_email"
-                                        value="Email: {{ user.email }}" readonly>
-                                    <input type="text" class="nome-hardware mb-2" name="user_cpf"
-                                        value="CPF: {{ user.cpf }}" readonly>
-                                    <input type="date" class="nome-hardware mb-2" name="user_birth_date"
-                                        value="{{ user.birth_date }}" readonly>
+                                <label for="confirmation" class="form-label text-center remove-label">
+                                    <input type="text" class="input-confirm-delete mb-2" name="confirmation" value="DIGITE APAGAR">
                                 </label>
                             </div>
                             <div class="col-6 my-5 mx-auto button-modal-confirm">
                                 <button class="btn btn-danger mx-auto btn-lg">
-                                    <input type="submit">Confirmar</input>
+                                    <button type="submit">Confirmar</button>
                                 </button>
                             </div>
                         </form>
@@ -117,10 +85,12 @@
                         <h3 class="text-center mx-auto">Editar uma Filial</h3>
                         <form>
                             <div class="col-6 mt-5 mx-auto desc-modal">
+                                <label for="edit_filial_name" class="form-label">Nome da Filial</label>
+                                <input type="text" id="edit_filial_name" class="form-control mb-2" required>
                             </div>
-                            <div class="col-6 my-5 mx-auto button-modal-confirm">
-                                <button class="btn btn-danger mx-auto btn-lg">
-                                    <input type="submit">Confirmar</input>
+                            <div class="col-6 mx-auto button-modal-confirm">
+                                <button type="submit" class="btn btn-danger mx-auto btn-lg">
+                                    Confirmar
                                 </button>
                             </div>
                         </form>
@@ -128,8 +98,68 @@
                 </div>
             </div>
         </div>
-
     </main>
+
+    <script>
+
+        async function fetchFiliais() {
+            try {
+                const response = await fetch('http://localhost:3000/api/filiais'); // Use a URL correta para seu backend
+                const filiais = await response.json();
+
+                const cardsContainer = document.getElementById('cards-container');
+                cardsContainer.innerHTML = ''; // Limpa o conteúdo atual
+
+                filiais.forEach(filial => {
+                    const cardHTML = `
+                <div class="card-body">
+                    <div style="display: flex; flex-direction: row">
+                        <div style="display: flex; flex-direction: column">
+                            <h2 style="margin-left: 2rem; color: white; margin-top: 1rem;">Nome</h2>
+                            <h3 style="margin-left: 2rem; color: #DEE7E7;">${filial.Empresa.Nome}</h3>
+                        </div>
+                        <div style="width: 2px; height: 69px; background-color: white; margin-top: 1.5rem; margin-left: 3rem"></div>
+                        <div style="display: flex; flex-direction: column">
+                            <h2 style="margin-left: 1rem; color: white; margin-top: 1rem;">País</h2>
+                            <h3 style="margin-left: 1rem; color: #DEE7E7;">Brasil</h3> <!-- Ajuste para o país correto -->
+                        </div>
+                        <div style="width: 2px; height: 69px; background-color: white; margin-top: 1.5rem; margin-left: 3rem"></div>
+                        <div style="display: flex; flex-direction: column">
+                            <h2 style="margin-left: 1rem; color: white; margin-top: 1rem;">CNPJ</h2>
+                            <h3 style="margin-left: 1rem; color: #DEE7E7;">${filial.Empresa.CNPJ}</h3>
+                        </div>
+                        <div class="btn-area" style="display: flex; align-items: center;">
+                            <button type="button" class="btn-second btn-leave" data-bs-toggle="modal" data-bs-target="#ModalEditUser">Editar</button>
+                        </div>
+                        <div class="btn-area" style="display: flex; align-items: center;">
+                            <button type="button" class="btn-geral btn-leave" data-bs-toggle="modal" data-bs-target="#ModalDelUser">Deletar</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+                    // Insere o card no container de cards
+                    cardsContainer.innerHTML += cardHTML;
+                });
+            } catch (error) {
+                console.error('Erro ao buscar filiais:', error);
+            }
+        }
+
+        // Chama a função quando a página carrega
+        window.onload = fetchFiliais;
+
+        // Funções para editar e deletar filiais (você vai implementar essas funcionalidades)
+        function editFilial(id) {
+            // Lógica para editar a filial
+            console.log('Editar filial ID:', id);
+        }
+
+        function deleteFilial(id) {
+            // Lógica para deletar a filial
+            console.log('Deletar filial ID:', id);
+        }
+    </script>
 
     <footer class="site-footer">
         <footer-component></footer-component>

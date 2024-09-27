@@ -76,6 +76,15 @@ class FilialService {
     });
   }
 
+  async getAllFiliais() {
+    const filiais = await prisma.filial.findMany({
+      include: {
+        Empresa: true,
+      },
+    })
+    return filiais;
+  }
+
   async updateFilial(id, data) {
     const filialExists = await prisma.filial.findUnique({
       where: { ID: parseInt(id) },
