@@ -169,7 +169,7 @@ function sendToAPI(data, qc) {
 function savePredictionToDatabase(apiResponse, qc) {
     const predictionData = {
         QC: qc.QC.toString(),  // Valor do QC que foi enviado na predição
-        Saida: apiResponse.Results // O resultado retornado da API
+        Saida: typeof apiResponse.Results === 'string' ? apiResponse.Results : String(apiResponse.Results) // O resultado retornado da API
     };
 
     fetch('http://localhost:3000/api/predictions', {
