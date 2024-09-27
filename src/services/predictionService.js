@@ -7,7 +7,7 @@ class PredictionService {
     const decisaoData = {
       QC: data.QC.toString(),
       Data: new Date(),
-      Saida: data.Saida,
+      Saida: typeof data.Saida === 'string' ? data.Saida : String(data.Saida),
     };
 
     const novaDecisao = await prisma.decisao.create({
