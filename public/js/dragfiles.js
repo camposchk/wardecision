@@ -91,7 +91,7 @@ function handleSubmit(event) {
         const filteredData = jsonData.filter(row => row['QC'] == qcValue);
         if (filteredData.length > 0) {
             let rowData = { ...filteredData[0] };
-            const qcString = rowData['QC']; // Captura o valor de QC
+            const qcString = rowData['QC'].toString(); // Captura o valor de QC
 
             delete rowData['QC']; // Remove a coluna 'QC' do rowData
 
@@ -168,7 +168,7 @@ function sendToAPI(data, qc) {
 // Função para salvar a predição no banco de dados
 function savePredictionToDatabase(apiResponse, qc) {
     const predictionData = {
-        QC: qc,  // Valor do QC que foi enviado na predição
+        QC: qc.QC.toString(),  // Valor do QC que foi enviado na predição
         Saida: apiResponse.result // O resultado retornado da API
     };
 
