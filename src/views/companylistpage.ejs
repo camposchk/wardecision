@@ -56,7 +56,7 @@
                     </div>
                     <div class="modal-body">
                         <h3 class="text-center mx-auto">Remover uma Filial</h3>
-                        <form id="deleteFilialForm" onsubmit="confirmDelete(event)">
+                        <form id="deleteFilialForm">
                             <div class="col-6 mt-5 mx-auto desc-modal">
                                 <label for="filial_name" class="form-label text-center remove-label">
                                     <input type="text" id="filial_name" readonly>
@@ -64,7 +64,8 @@
                             </div>
                             <input type="hidden" id="delete_filial_id">
                             <div class="col-6 my-5 mx-auto button-modal-confirm">
-                                <button class="btn btn-danger mx-auto btn-lg" type="submit" style="width: 100%;">Confirmar</button>
+                                <button class="btn btn-danger mx-auto btn-lg" type="submit" style="width: 100%;"
+                                    onclick="confirmDelete(event)">Confirmar</button>
                             </div>
                         </form>
                     </div>
@@ -83,17 +84,15 @@
                     </div>
                     <div class="modal-body">
                         <h3 class="text-center mx-auto">Editar uma Filial</h3>
-                        <form id="editFilialForm" onsubmit="submitEdit(event)">
+                        <form id="editFilialForm">
                             <div class="col-6 mt-5 mx-auto desc-modal">
                                 <label for="edit_filial_name" class="form-label">Nome da Filial</label>
                                 <input type="text" id="edit_filial_name" class="form-control mb-2" required>
-
-                                <label for="edit_filial_estado" class="form-label">Estado</label>
-                                <input type="text" id="edit_filial_estado" class="form-control mb-2" required>
                             </div>
                             <input type="hidden" id="edit_filial_id">
                             <div class="col-6 my-5 mx-auto button-modal-confirm">
-                                <button class="btn btn-primary mx-auto btn-lg" type="submit" style="width: 100%;">Salvar</button>
+                                <button class="btn btn-primary mx-auto btn-lg" type="submit" style="width: 100%;"
+                                    onclick="submitEdit(event)">Salvar</button>
                             </div>
                         </form>
                     </div>
@@ -109,7 +108,7 @@
             try {
                 const response = await fetch('http://localhost:3000/api/filiais');
                 const filiais = await response.json();
-
+                console.log(filiais);
                 const cardsContainer = document.getElementById('cards-container');
                 cardsContainer.innerHTML = '';
 
@@ -155,11 +154,16 @@
             const id = document.getElementById('edit_filial_id').value;
             const nome = document.getElementById('edit_filial_name').value;
 
+            console.log('ID da filial a ser editada:', id);
+            console.log('Nome da filial a ser atualizado:', nome);
+
             const updatedFilial = {
                 Nome: nome,
             };
 
             try {
+                console.log('Corpo da requisição (dados da filial):', JSON.stringify(updatedFilial));
+
                 const response = await fetch(`http://localhost:3000/api/filiais/${id}`, {
                     method: 'PUT',
                     headers: {
@@ -168,14 +172,20 @@
                     body: JSON.stringify(updatedFilial),
                 });
 
+                console.log('Resposta da requisição de edição:', response);
+
                 if (response.ok) {
                     alert('Filial editada com sucesso');
 
+                    console.log('Chamando fetchFiliais() para atualizar a lista.');
                     fetchFiliais();
                 } else {
                     alert('Erro ao editar filial');
+
+                    console.error('Erro na resposta do servidor ao editar filial:', response.status, response.statusText);
                 }
             } catch (error) {
+
                 console.error('Erro ao editar filial:', error);
                 alert('Erro ao editar filial');
             }
@@ -184,19 +194,26 @@
         async function confirmDelete(event) {
             event.preventDefault();
             const id = document.getElementById('delete_filial_id').value;
+            console.log('ID da filial a ser deletada:', id);
             try {
-                const response = await fetch(`http://localhost:3000/filiais/${id}`, {
+                const response = await fetch(`http://localhost:3000/api/del-filiais/${id}`, {
                     method: 'DELETE',
                 });
+
+                console.log('Resposta da requisição de exclusão:', response);
 
                 if (response.ok) {
                     alert('Filial deletada com sucesso');
 
+                    console.log('Chamando fetchFiliais() para atualizar a lista após exclusão.');
                     fetchFiliais();
                 } else {
                     alert('Erro ao deletar filial');
+
+                    console.error('Erro na resposta do servidor ao deletar filial:', response.status, response.statusText);
                 }
             } catch (error) {
+
                 console.error('Erro ao deletar filial:', error);
                 alert('Erro ao deletar filial');
             }

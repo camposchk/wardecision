@@ -37,13 +37,16 @@ module.exports = {
       res.status(200).json(filiais);
     } catch (error) {
       console.error(error);
-      res.status(500).json({error: 'Erro ao buscar Filiais'})
+      res.status(500).json({ error: 'Erro ao buscar Filiais' })
     }
   },
 
   async updateFilialById(req, res) {
     const id = req.params.id;
     const data = req.body;
+
+    console.log('ID recebido para atualização:', id);
+    console.log('Dados recebidos para atualização:', data);
 
     try {
       const filialAtualizada = await filialService.updateFilial(id, data);
@@ -55,6 +58,8 @@ module.exports = {
 
   async deleteFilialById(req, res) {
     const id = req.params.id;
+
+    console.log('ID recebido para exclusão:', id);
 
     try {
       await filialService.deleteFilial(id);

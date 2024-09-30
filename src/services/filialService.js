@@ -45,13 +45,13 @@ class FilialService {
             Email: data.email
           }]
         } : undefined,
-        Filial: {
-          create: {
-            //ID_Empresa: idEmpresa,
-            E_filial: true,
-            Codigo: uniqueCode,
-          }
+      Filial: {
+        create: {
+          //ID_Empresa: idEmpresa,
+          E_filial: true,
+          Codigo: uniqueCode,
         }
+      }
     };
 
     // Log para depuração
@@ -86,7 +86,11 @@ class FilialService {
   }
 
   async updateFilial(id, data) {
-    const filialExists = await prisma.filial.findUnique({
+    console.log('Atualizando filial com ID:', id);
+    console.log('Dados recebidos no serviço para atualização:', data);
+
+    // Verificando se a filial existe antes de atualizar
+    const filialExists = await prisma.filial.findFirst({
       where: { ID: parseInt(id) },
     });
 
@@ -94,14 +98,29 @@ class FilialService {
       throw new Error("Filial não encontrada.");
     }
 
-    return prisma.filial.update({
-      where: { ID: parseInt(id) },
-      data,
-    });
+    try {
+      // Atualizando os dados da filial
+      const filialAtualizada = await prisma.filial.update({
+        where: { ID: parseInt(id) },
+        data: {
+          Empresa: {
+            update: data,  // Certifique-se que a estrutura de 'data' está correta
+          },
+        },
+      });
+
+      console.log('Filial atualizada com sucesso:', filialAtualizada);
+      return filialAtualizada;
+    } catch (error) {
+      // Captura e lança o erro no log
+      console.log('Erro no serviço de atualização de filial:', error.message);
+      throw new Error(`Erro ao atualizar filial: ${error.message}`);
+    }
   }
 
   async deleteFilial(id) {
-    const filial = await prisma.filial.findUnique({
+    // Verificando se a filial existe antes de deletar
+    const filial = await prisma.filial.findFirst({
       where: { ID: parseInt(id) },
     });
 
@@ -109,9 +128,19 @@ class FilialService {
       throw new Error("Filial não encontrada.");
     }
 
-    return prisma.filial.delete({
-      where: { ID: parseInt(id) },
-    });
+    try {
+      // Excluindo a filial
+      const result = await prisma.filial.delete({
+        where: { ID: parseInt(id) },
+      });
+
+      console.log('Filial excluída com sucesso:', result);
+      return result;
+    } catch (error) {
+      // Captura e lança o erro no log
+      console.log('Erro ao deletar filial no serviço:', error.message);
+      throw new Error(`Erro ao deletar filial: ${error.message}`);
+    }
   }
 }
 
