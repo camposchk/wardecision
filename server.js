@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 const path = require('path');
 const { title } = require('process');
+const predictionController = require('./src/controller/predictionController');
 
 const app = express();
 app.use(express.json());
@@ -60,8 +61,17 @@ app.get('/predict', (req, res) => {
   res.render('predictpage', { title: 'Nova análise' });
 });
 
-app.get('/history', (req, res) => {
-  res.render('historypage', { title: 'Histórico' });
+app.get('/history', async (req, res) => {
+  try {
+    // Busca todas as previsões usando o predictionController
+    const predictions = await predictionController.getAllPredictions(req, res);
+    
+    // Renderiza a página de histórico com os dados de previsões
+    res.render('historypage', { title: 'Histórico', predictions });
+  } catch (error) {
+    console.error('Erro ao buscar previsões:', error);
+    res.status(500).send('Erro ao carregar o histórico de previsões');
+  }
 });
 
 app.get('/list', (req,res) => {
