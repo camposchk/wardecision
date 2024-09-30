@@ -20,7 +20,7 @@ module.exports = {
   async getAllPredictions(req, res) {
     try {
       const decisoes = await predictionService.getAllDecisoes();
-      res.status(200).json(decisoes);
+      res.render('historypage', { decisoes }); // Renderiza o EJS com as decisões
     } catch (error) {
       console.error("Erro ao buscar predições:", error.message);
       res.status(500).json({ error: "Erro ao buscar predições" });

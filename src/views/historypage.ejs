@@ -14,12 +14,10 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-     <!-- Fonts -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-     <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
- 
-
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -36,7 +34,7 @@
             <div class="wave bottom"></div>
             <div class="wave bottom"></div>
             <div class="wave bottom"></div>
-    
+
             <svg width="0" height="0">
                 <defs>
                     <clipPath id="wavePath" clipPathUnits="objectBoundingBox">
@@ -60,20 +58,24 @@
                 </div>
                 <div style="display: flex; justify-content: center">
                     <div class="cards" style="margin-top: 2.5rem">
-                        <div style="display: flex; flex-direction: row">
-                            <div style="display: flex; flex-direction: column">
-                                <h2 style="margin-left: 2rem; color: white; margin-top: 1rem;">QC</h2>
-                                <h3 style="margin-left: 2rem; color: #DEE7E7;">92902080</h3>
+                        <!-- Verifica se há previsões -->
+                        <% if (predictions && predictions.length > 0) { %>
+                            <% predictions.forEach(function(prediction) { %> <!-- Itera sobre as previsões -->
+                            <div style="display: flex; flex-direction: row; margin-bottom: 1.5rem">
+                                <div style="display: flex; flex-direction: column">
+                                    <h2 style="margin-left: 2rem; color: white; margin-top: 1rem;">QC</h2>
+                                    <h3 style="margin-left: 2rem; color: #DEE7E7;"><%= prediction.QC %></h3>
+                                </div>
+                                <div style="width: 2px; height: 69px; background-color: white; margin-top: 1.5rem; margin-left: 3rem"></div>
+                                <div style="display: flex; flex-direction: column">
+                                    <h2 style="margin-left: 1rem; color: white; margin-top: 1rem;">PREVISÃO</h2>
+                                    <h3 style="margin-left: 1rem; color: #DEE7E7;"><%= prediction.result %></h3>
+                                </div>
                             </div>
-                            <div style="width: 2px; height: 69px; background-color: white; margin-top: 1.5rem; margin-left: 3rem"></div>
-                            <div style="display: flex; flex-direction: column">
-                                <h2 style="margin-left: 1rem; color: white; margin-top: 1rem;">PREVISÃO</h2>
-                                <h3 style="margin-left: 1rem; color: #DEE7E7;">B</h3>
-                            </div>
-                            <!-- <div class="btn-area" style="display: flex; align-items: center;">
-                                <button type="button" class="btn-second btn-leave">Acessar</button>
-                            </div> -->
-                        </div>
+                            <% }); %>
+                        <% } else { %>
+                            <h2 style="color: white; text-align: center;">Nenhuma previsão encontrada.</h2>
+                        <% } %>
                     </div>     
                 </div>
             </div>
