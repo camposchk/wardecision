@@ -46,26 +46,25 @@
             </div>
         </section>
 
-        <!-- Modal exclusão de empresa  -->
-        <div id="ModalDelUser" class="modal fade">
+        <!-- Modal exclusão de filial -->
+        <div id="ModalDelFilial" class="modal fade">
             <div class="modal-dialog border-rounded">
-                <div class="modal-content strongbg">
+                <div class="modal-content strongbg" style="background-color: #6B6A7A; color: #ffffff;">
                     <div class="modal-header border-0">
                         <button type="button" class="btn btn-close" style="background-color:#b9b9b9;"
                             data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
                         <h3 class="text-center mx-auto">Remover uma Filial</h3>
-                        <form>
+                        <form id="deleteFilialForm" onsubmit="confirmDelete(event)">
                             <div class="col-6 mt-5 mx-auto desc-modal">
-                                <label for="delete_confiramtion" class="form-label">Digite "APAGAR" para confirmar a
-                                    remoção da Filial</label>
-                                <input type="text" id="delete_confiramtion" class="form-control mb-2" required>
+                                <label for="filial_name" class="form-label text-center remove-label">
+                                    <input type="text" id="filial_name" readonly>
+                                </label>
                             </div>
+                            <input type="hidden" id="delete_filial_id">
                             <div class="col-6 my-5 mx-auto button-modal-confirm">
-                                <button class="btn btn-danger mx-auto btn-lg">
-                                    Confirmar
-                                </button>
+                                <button class="btn btn-danger mx-auto btn-lg" type="submit" style="width: 100%;">Confirmar</button>
                             </div>
                         </form>
                     </div>
@@ -73,42 +72,46 @@
             </div>
         </div>
 
-        <!-- Modal edição de empresa  -->
-        <div id="ModalEditUser" class="modal fade">
+
+        <!-- Modal edição de filial -->
+        <div id="ModalEditFilial" class="modal fade">
             <div class="modal-dialog border-rounded">
-                <div class="modal-content strongbg">
+                <div class="modal-content strongbg" style="background-color: #6B6A7A; color: #ffffff;">
                     <div class="modal-header border-0">
                         <button type="button" class="btn btn-close" style="background-color:#b9b9b9;"
                             data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
                         <h3 class="text-center mx-auto">Editar uma Filial</h3>
-                        <form>
-                            <div class="col-6 mt-5 mb-5 mx-auto desc-modal">
+                        <form id="editFilialForm" onsubmit="submitEdit(event)">
+                            <div class="col-6 mt-5 mx-auto desc-modal">
                                 <label for="edit_filial_name" class="form-label">Nome da Filial</label>
                                 <input type="text" id="edit_filial_name" class="form-control mb-2" required>
+
+                                <label for="edit_filial_estado" class="form-label">Estado</label>
+                                <input type="text" id="edit_filial_estado" class="form-control mb-2" required>
                             </div>
-                            <div class="col-6 mx-auto button-modal-confirm">
-                                <button type="submit" class="btn btn-danger mx-auto btn-lg" onclick="submitEdit(event)">
-                                    Confirmar
-                                </button>
+                            <input type="hidden" id="edit_filial_id">
+                            <div class="col-6 my-5 mx-auto button-modal-confirm">
+                                <button class="btn btn-primary mx-auto btn-lg" type="submit" style="width: 100%;">Salvar</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+
     </main>
 
     <script>
 
         async function fetchFiliais() {
             try {
-                const response = await fetch('http://localhost:3000/api/filiais'); 
+                const response = await fetch('http://localhost:3000/api/filiais');
                 const filiais = await response.json();
 
                 const cardsContainer = document.getElementById('cards-container');
-                cardsContainer.innerHTML = ''; 
+                cardsContainer.innerHTML = '';
 
                 filiais.forEach(filial => {
                     const cardHTML = `
@@ -129,10 +132,10 @@
                             <h3 style="margin-left: 1rem; color: #DEE7E7;">${filial.Empresa.CNPJ}</h3>
                         </div>
                         <div class="btn-area" style="display: flex; align-items: center;">
-                            <button type="button" class="btn-second btn-leave" data-bs-toggle="modal" data-bs-target="#ModalEditUser">Editar</button>
+                            <button type="button" class="btn-second btn-leave" data-bs-toggle="modal" data-bs-target="#ModalEditFilial">Editar</button>
                         </div>
                         <div class="btn-area" style="display: flex; align-items: center;">
-                            <button type="button" class="btn-geral btn-leave" data-bs-toggle="modal" data-bs-target="#ModalDelUser">Deletar</button>
+                            <button type="button" class="btn-geral btn-leave" data-bs-toggle="modal" data-bs-target="#ModalDelFilial">Deletar</button>
                         </div>
                     </div>
                 </div>
@@ -147,7 +150,7 @@
         window.onload = fetchFiliais;
 
         async function submitEdit(event) {
-            event.preventDefault(); 
+            event.preventDefault();
 
             const id = document.getElementById('edit_filial_id').value;
             const nome = document.getElementById('edit_filial_name').value;
@@ -167,7 +170,7 @@
 
                 if (response.ok) {
                     alert('Filial editada com sucesso');
-             
+
                     fetchFiliais();
                 } else {
                     alert('Erro ao editar filial');
@@ -179,7 +182,7 @@
         }
 
         async function confirmDelete(event) {
-            event.preventDefault(); 
+            event.preventDefault();
             const id = document.getElementById('delete_filial_id').value;
             try {
                 const response = await fetch(`http://localhost:3000/filiais/${id}`, {
@@ -188,7 +191,7 @@
 
                 if (response.ok) {
                     alert('Filial deletada com sucesso');
-                   
+
                     fetchFiliais();
                 } else {
                     alert('Erro ao deletar filial');
