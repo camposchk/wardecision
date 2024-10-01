@@ -32,6 +32,7 @@
     <main>
         <section class="section1">
             <div class="search-area">
+                <h1 style="margin-right: 15px; color: #b9b9b9;">GERENCIE SUAS FILIAIS</h1>
                 <form class="form-inline">
                     <input id="Search" onkeyup="searchFunction()" class="search" type="search"
                         placeholder="Pesquisar Filiais" aria-label="Search">
@@ -47,7 +48,7 @@
         </section>
 
         <!-- Modal exclusão de filial -->
-        <div id="ModalDelFilial" class="modal fade">
+        <div id="ModalDelUser" class="modal fade">
             <div class="modal-dialog border-rounded">
                 <div class="modal-content strongbg" style="background-color: #6B6A7A; color: #ffffff;">
                     <div class="modal-header border-0">
@@ -75,7 +76,7 @@
 
 
         <!-- Modal edição de filial -->
-        <div id="ModalEditFilial" class="modal fade">
+        <div id="ModalEditUser" class="modal fade">
             <div class="modal-dialog border-rounded">
                 <div class="modal-content strongbg" style="background-color: #6B6A7A; color: #ffffff;">
                     <div class="modal-header border-0">
@@ -123,7 +124,7 @@
                         <div style="width: 2px; height: 69px; background-color: white; margin-top: 1.5rem; margin-left: 3rem"></div>
                         <div style="display: flex; flex-direction: column">
                             <h2 style="margin-left: 1rem; color: white; margin-top: 1rem;">País</h2>
-                            <h3 style="margin-left: 1rem; color: #DEE7E7;">Brasil</h3> <!-- Ajuste para o país correto -->
+                            <h3 style="margin-left: 1rem; color: #DEE7E7;">Brasil</h3>
                         </div>
                         <div style="width: 2px; height: 69px; background-color: white; margin-top: 1.5rem; margin-left: 3rem"></div>
                         <div style="display: flex; flex-direction: column">
@@ -131,10 +132,12 @@
                             <h3 style="margin-left: 1rem; color: #DEE7E7;">${filial.Empresa.CNPJ}</h3>
                         </div>
                         <div class="btn-area" style="display: flex; align-items: center;">
-                            <button type="button" class="btn-second btn-leave" data-bs-toggle="modal" data-bs-target="#ModalEditFilial">Editar</button>
+                            <!-- Passando os dados da filial para openEditModal -->
+                            <button type="button" class="btn-second btn-leave" onclick='openEditModal(${JSON.stringify(filial)})'>Editar</button>
                         </div>
                         <div class="btn-area" style="display: flex; align-items: center;">
-                            <button type="button" class="btn-geral btn-leave" data-bs-toggle="modal" data-bs-target="#ModalDelFilial">Deletar</button>
+                            <!-- Passando os dados da filial para openDeleteModal -->
+                            <button type="button" class="btn-geral btn-leave" onclick='openDeleteModal(${JSON.stringify(filial)})'>Deletar</button>
                         </div>
                     </div>
                 </div>
@@ -145,6 +148,7 @@
                 console.error('Erro ao buscar filiais:', error);
             }
         }
+
 
         window.onload = fetchFiliais;
 
@@ -217,6 +221,37 @@
                 console.error('Erro ao deletar filial:', error);
                 alert('Erro ao deletar filial');
             }
+        }
+
+        function openEditModal(filial) {
+            if (!filial || !filial.ID) {
+                console.error("Filial inválida ou ID ausente");
+                alert("Erro ao tentar editar a filial.");
+                return;
+            }
+
+            // Preenche o campo de ID oculto no modal de edição
+            document.getElementById('edit_filial_id').value = filial.ID;
+            document.getElementById('edit_filial_name').value = filial.Empresa.Nome;
+
+            // Exibe o modal de edição
+            const editModal = new bootstrap.Modal(document.getElementById('ModalEditUser'));
+            editModal.show();
+        }
+
+        function openDeleteModal(filial) {
+            if (!filial || !filial.ID) {
+                console.error("Filial inválida ou ID ausente");
+                alert("Erro ao tentar deletar a filial.");
+                return;
+            }
+
+            // Preenche o campo de ID oculto no modal de exclusão
+            document.getElementById('delete_filial_id').value = filial.ID;
+
+            // Exibe o modal de exclusão
+            const deleteModal = new bootstrap.Modal(document.getElementById('ModalDelUser'));
+            deleteModal.show();
         }
     </script>
 
