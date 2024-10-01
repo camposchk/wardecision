@@ -1,3 +1,45 @@
+function validarCNPJ(cnpj) {
+  // Remover caracteres especiais (pontos, traços e barras)
+  cnpj = cnpj.replace(/[^\d]+/g, '');
+
+  // Verifica se tem 14 dígitos
+  if (cnpj.length !== 14) return false;
+
+  // Elimina CNPJs inválidos conhecidos
+  if (/^(\d)\1+$/.test(cnpj)) return false;
+
+  // Cálculo dos primeiros 12 dígitos para encontrar o primeiro dígito verificador
+  let tamanho = cnpj.length - 2;
+  let numeros = cnpj.substring(0, tamanho);
+  let digitos = cnpj.substring(tamanho);
+  let soma = 0;
+  let pos = tamanho - 7;
+  
+  for (let i = tamanho; i >= 1; i--) {
+      soma += numeros.charAt(tamanho - i) * pos--;
+      if (pos < 2) pos = 9;
+  }
+  
+  let resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+  if (resultado !== parseInt(digitos.charAt(0))) return false;
+
+  // Cálculo dos 13 primeiros dígitos para encontrar o segundo dígito verificador
+  tamanho = tamanho + 1;
+  numeros = cnpj.substring(0, tamanho);
+  soma = 0;
+  pos = tamanho - 7;
+  
+  for (let i = tamanho; i >= 1; i--) {
+      soma += numeros.charAt(tamanho - i) * pos--;
+      if (pos < 2) pos = 9;
+  }
+  
+  resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+  if (resultado !== parseInt(digitos.charAt(1))) return false;
+
+  return true;
+}
+
 async function handleRegister(event) {
   event.preventDefault();
 
@@ -25,6 +67,9 @@ async function handleRegister(event) {
   const today = new Date();
   const inputDate = new Date(formRegData.date);
 
+  //verificar o CNPJ
+  const cnpj = validarCNPJ(formRegData.CNPJ);
+
   let errors = [];
 
   // Validações finais antes de enviar
@@ -40,13 +85,19 @@ async function handleRegister(event) {
   if (formRegData.CEP.length !== 8) 
     errors.push('O CEP deve ter exatamente 8 dígitos.');
 
+  if (!cnpj)
+    errors.push('CNPJ INVÁLIDO');
+
   if (inputDate > today) 
     errors.push('A data de abertura não deve ser posterior ao dia atual');
   
   if (formRegData.password !== formRegData.confirmpassword) 
     errors.push('As senhas não coincidem');
   
-  if (errors.length > 0) return;
+  if (errors.length > 0) {
+    alert('Dados inválidos, tente novamente!');
+    return;
+  }
 
   try {
     const response = await fetch('http://localhost:3000/api/add', {

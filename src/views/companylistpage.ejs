@@ -42,7 +42,7 @@
         </section>
 
         <section class="section2">
-            <div class="cards" id="cards-container">
+            <div id="cards-container">
 
             </div>
         </section>
@@ -115,6 +115,7 @@
 
                 filiais.forEach(filial => {
                     const cardHTML = `
+                    <div class="cards" style="margin-top: 40px;">
                 <div class="card-body">
                     <div style="display: flex; flex-direction: row">
                         <div style="display: flex; flex-direction: column">
@@ -131,7 +132,7 @@
                             <h2 style="margin-left: 1rem; color: white; margin-top: 1rem;">CNPJ</h2>
                             <h3 style="margin-left: 1rem; color: #DEE7E7;">${filial.Empresa.CNPJ}</h3>
                         </div>
-                        <div class="btn-area" style="display: flex; align-items: center;">
+                        <div class="btn-area" style="display: flex; align-items: center; margin-left: 10px">
                             <!-- Passando os dados da filial para openEditModal -->
                             <button type="button" class="btn-second btn-leave" onclick='openEditModal(${JSON.stringify(filial)})'>Editar</button>
                         </div>
@@ -140,6 +141,7 @@
                             <button type="button" class="btn-geral btn-leave" onclick='openDeleteModal(${JSON.stringify(filial)})'>Deletar</button>
                         </div>
                     </div>
+                </div>
                 </div>
             `;
                     cardsContainer.innerHTML += cardHTML;
@@ -248,6 +250,7 @@
 
             // Preenche o campo de ID oculto no modal de exclusão
             document.getElementById('delete_filial_id').value = filial.ID;
+            document.getElementById('filial_name').value = filial.Empresa.Nome;
 
             // Exibe o modal de exclusão
             const deleteModal = new bootstrap.Modal(document.getElementById('ModalDelUser'));

@@ -173,6 +173,18 @@ input:hover {
     color: rgb(255, 240, 240) !important;
 }
 
+.forgot-pass {
+    margin-left: 30%;
+    background-color: transparent;
+    border: none;
+    color: #F5F5F5;
+    margin-top: 10px;
+}
+
+.forgot-pass:hover{
+    color:rgb(245, 123, 123) ;
+}
+
 @media (width > 1024px) {
 
     body,
@@ -293,8 +305,12 @@ input:hover {
     }
 
     .btn-login {
-        margin-top: 80px;
+        margin-top: 30px;
         height: 55px;
+    }
+
+    .forgot-pass {
+        margin-left: 65%;
     }
 }
 

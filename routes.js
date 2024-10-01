@@ -19,7 +19,7 @@ routes.post('/login', login.login);
 
 // Rota para listar empresas filiais
 routes.get('/filiais', filial.getAllFilials);
-routes.put('/filiais/:id', filial.getFilialById);
+routes.put('/filiais/:id', filial.updateFilialById);
 routes.delete('/del-filiais/:id', filial.deleteFilialById);
 
 // Rotas protegidas (autenticadas)

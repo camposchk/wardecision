@@ -102,7 +102,7 @@ class EmpresaService {
     }
     else {
       if (data.matriz && data.matriz.E_matriz === true) {
-        throw new Error("Não é permitido converter uma filiar em matriz");
+        throw new Error("Não é permitido converter uma filial em matriz");
       }
     }
 

@@ -73,6 +73,7 @@
                         <input type="password" class="login" id="password" placeholder="Insira sua Senha" name="password">
                         <i class="bi bi-eye mt-2" id="eye-toggle"></i>
                     </div>
+                    <a class="forgot-pass" data-bs-toggle="modal" data-bs-target="#ModalEditPassword" style="text-decoration: none; cursor: pointer;" >Esqueci minha senha</a>
                     <div class="btn-area-second">
                         <button type="submit" class="btn-login btn-geral" value="ENTRAR" onclick="handleLogin(event)">ENTRAR</button>
                     </div>
@@ -81,6 +82,40 @@
             </div>
         </section>
     </main>
+
+     <!-- Modal edição de senha -->
+     <div id="ModalEditPassword" class="modal fade">
+        <div class="modal-dialog border-rounded">
+            <div class="modal-content strongbg" style="background-color: #6B6A7A; color: #ffffff;">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn btn-close" style="background-color:#b9b9b9;"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h3 class="text-center mx-auto">Esqueci Minha Senha</h3>
+                    <p class="text-center mt-3"> Para alterar sua senha, </br>
+                        informe os campos correspondentes abaixo:</p>
+                    <form id="editFilialForm">
+                        <div class="col-6 mt-5 mx-auto desc-modal">
+                            <label for="edit_filial_name" class="form-label">Código:</label>
+                            <input type="text" id="code" class="form-control mb-2" required>
+
+                            <label for="edit_filial_name" class="form-label">CNPJ:</label>
+                            <input type="text" id="cnpj" class="form-control mb-2" required>
+
+                            <label for="edit_filial_name" class="form-label">Nova Senha:</label>
+                            <input type="password" id="cnpj" class="form-control mb-2" required>
+                        </div>
+                        <input type="hidden" id="edit_filial_id">
+                        <div class="col-6 my-5 mx-auto button-modal-confirm">
+                            <button class="btn btn-primary mx-auto btn-lg" type="submit" style="width: 100%;"
+                                onclick="">Alterar Senha</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <!-- Scripts -->
      <script src="js/app.js"></script>
