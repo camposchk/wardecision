@@ -152,6 +152,7 @@
 
         window.onload = fetchFiliais;
 
+        //existe algo aqui
         async function submitEdit(event) {
             event.preventDefault();
 
@@ -189,7 +190,6 @@
                     console.error('Erro na resposta do servidor ao editar filial:', response.status, response.statusText);
                 }
             } catch (error) {
-
                 console.error('Erro ao editar filial:', error);
                 alert('Erro ao editar filial');
             }
