@@ -61,18 +61,7 @@ app.get('/predict', (req, res) => {
   res.render('predictpage', { title: 'Nova análise' });
 });
 
-app.get('/history', async (req, res) => {
-  try {
-    // Busca todas as previsões usando o predictionController
-    const predictions = await predictionController.getAllPredictions(req, res);
-    
-    // Renderiza a página de histórico com os dados de previsões
-    res.render('historypage', { title: 'Histórico', predictions });
-  } catch (error) {
-    console.error('Erro ao buscar previsões:', error);
-    res.status(500).send('Erro ao carregar o histórico de previsões');
-  }
-});
+app.get('/history', predictionController.getAllPredictions);
 
 app.get('/list', (req,res) => {
   res.render('companylistpage', { title: 'Lista de Filiais'})

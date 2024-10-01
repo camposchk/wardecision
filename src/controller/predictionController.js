@@ -19,11 +19,16 @@ module.exports = {
   // Método para buscar todas as predições
   async getAllPredictions(req, res) {
     try {
+      // Chama o service para obter as decisões
       const decisoes = await predictionService.getAllDecisoes();
-      res.render('historypage', { decisoes }); // Renderiza o EJS com as decisões
+      
+      // Renderiza a página com as decisões
+      res.render('historypage', { title: 'Histórico', predictions: decisoes });
     } catch (error) {
-      console.error("Erro ao buscar predições:", error.message);
-      res.status(500).json({ error: "Erro ao buscar predições" });
+      console.error('Erro ao buscar decisões:', error);
+      if (!res.headersSent) {
+        res.status(500).send('Erro ao carregar as decisões');
+      }
     }
   },
 
