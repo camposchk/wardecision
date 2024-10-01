@@ -162,7 +162,7 @@ async function handleLogin(event) {
     window.location.href = `/home`;
   } catch (error) {
     console.error('Fetch error:', error);
-    alert(error.message);
+    alert("Dados inválidos, tente novamente!");
   }
 }
 

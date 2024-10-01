@@ -26,7 +26,7 @@ class EmpresaService {
       }
     }
 
-    
+
     const haveComplement = data.complement ? data.complement : "";
     const hashedPassword = await hashPassword(data.password);
     const haveFilial = data.filials ? true : false;
@@ -51,13 +51,14 @@ class EmpresaService {
           Complemento: haveComplement
         }]
       } : undefined,
-      Contato: data.phoneCode ? 
-      { create: [{
-          Codigo_Telefonico_Internacional: data.phoneCode,
-          Telefone: data.phone,
-          Email: data.email
-      }]
-      } : undefined,
+      Contato: data.phoneCode ?
+        {
+          create: [{
+            Codigo_Telefonico_Internacional: data.phoneCode,
+            Telefone: data.phone,
+            Email: data.email
+          }]
+        } : undefined,
       Matriz: data.matriz ? {
         create: {
           E_matriz: true,
@@ -80,7 +81,7 @@ class EmpresaService {
   async getEmpresaById(id) {
     return prisma.empresa.findUnique({
       where: { id: parseInt(id) },
-      incluse: {
+      include: {
         Enderecos: true,
         Contatos: true,
         Matriz: true,
@@ -126,6 +127,34 @@ class EmpresaService {
       where: { id: parseInt(id) },
     });
   }
+
+  async redefinirSenha(data) {
+
+    const empresa = await prisma.empresa.findUnique({
+      where: { Codigo: data.codigo },
+      include: { Matriz: true }, 
+    });
+
+    if (!empresa)
+      throw new Error('Empresa não encontrada.');
+
+    if (!empresa.Matriz)
+      throw new Error('Matriz não encontrada.');
+
+    if (empresa.Codigo !== data.codigo)
+      throw new Error('Credenciais inválidas.');
+
+    const hashedPassword = await hashPassword(data.novaSenha);
+
+    return prisma.matriz.update({
+      where: { ID: empresa.Matriz.ID }, 
+      data: {
+        Senha: hashedPassword 
+      },
+    });
+  }
+
+
 }
 
 module.exports = EmpresaService;

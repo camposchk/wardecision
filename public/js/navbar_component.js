@@ -26,8 +26,10 @@ class Navbar extends HTMLElement {
 
               <span class="navbar-text">
                 <div class="btn-area">
+                <a href="/">
                   <button type="button" class="btn-second btn-leave">SAIR</button>
-                </div>
+                </a>
+                  </div>
               </span>
             </div>
           </div>

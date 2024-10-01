@@ -16,10 +16,6 @@ class LoginService {
         console.log('Empresa encontrada:', empresa);
         console.log('Matriz encontrada:', empresa.Matriz);
 
-        // if (!senha || !empresa.Matriz.senha) {
-        //     throw new Error('Senha inválida.');
-        //   }
-
         console.log('Empresa:', empresa);  
         console.log('Senha Matriz:', empresa.Matriz.Senha);  
 

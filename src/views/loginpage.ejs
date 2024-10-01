@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,13 +15,16 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-     <!-- Fonts -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-     <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
- 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+        rel="stylesheet">
+
 
 </head>
+
 <body>
     <main>
         <div class="wave-container">
@@ -32,7 +36,7 @@
             <div class="wave bottom"></div>
             <div class="wave bottom"></div>
             <div class="wave bottom"></div>
-    
+
             <svg width="0" height="0">
                 <defs>
                     <clipPath id="wavePath" clipPathUnits="objectBoundingBox">
@@ -47,14 +51,15 @@
                 </defs>
             </svg>
         </div>
-        
+
         <section class="section1">
             <div class="title">
                 <p><span>WAR</span> DECISION</p>
             </div>
-            
+
             <div class="content">
-                <p class="subtitle">Comece agora e descubra como a inteligência artificial pode transformar sua maneira de tomar decisões estratégicas!</p>
+                <p class="subtitle">Comece agora e descubra como a inteligência artificial pode transformar sua maneira
+                    de tomar decisões estratégicas!</p>
                 <img class="img-logo-type mt-5" src="assets/logo.png">
             </div>
         </section>
@@ -67,24 +72,28 @@
                 <form class="form" action="/" method="post" id="formLogin">
                     <label class="label-geral label-login" for="login">LOGIN</label>
                     <input class="login" placeholder="Insira seu Código Único" name="login" id="login">
-                    
+
                     <label class="label-geral label-login" for="password">SENHA</label>
                     <div class="password_position">
-                        <input type="password" class="login" id="password" placeholder="Insira sua Senha" name="password">
+                        <input type="password" class="login" id="password" placeholder="Insira sua Senha"
+                            name="password">
                         <i class="bi bi-eye mt-2" id="eye-toggle"></i>
                     </div>
-                    <a class="forgot-pass" data-bs-toggle="modal" data-bs-target="#ModalEditPassword" style="text-decoration: none; cursor: pointer;" >Esqueci minha senha</a>
+                    <a class="forgot-pass" data-bs-toggle="modal" data-bs-target="#ModalEditPassword"
+                        style="text-decoration: none; cursor: pointer;">Esqueci minha senha</a>
                     <div class="btn-area-second">
-                        <button type="submit" class="btn-login btn-geral" value="ENTRAR" onclick="handleLogin(event)">ENTRAR</button>
+                        <button type="submit" class="btn-login btn-geral" value="ENTRAR"
+                            onclick="handleLogin(event)">ENTRAR</button>
                     </div>
-                    <p class="registro">Não possui uma conta? <a style="color: rgb(245, 123, 123);" href="/register">Registre-se</a></p>
+                    <p class="registro">Não possui uma conta? <a style="color: rgb(245, 123, 123);"
+                            href="/register">Registre-se</a></p>
                 </form>
             </div>
         </section>
     </main>
 
-     <!-- Modal edição de senha -->
-     <div id="ModalEditPassword" class="modal fade">
+    <!-- Modal edição de senha -->
+    <div id="ModalEditPassword" class="modal fade">
         <div class="modal-dialog border-rounded">
             <div class="modal-content strongbg" style="background-color: #6B6A7A; color: #ffffff;">
                 <div class="modal-header border-0">
@@ -93,33 +102,75 @@
                 </div>
                 <div class="modal-body">
                     <h3 class="text-center mx-auto">Esqueci Minha Senha</h3>
-                    <p class="text-center mt-3"> Para alterar sua senha, </br>
+                    <p class="text-center mt-3"> Para solicitar a alteração de senha, </br>
                         informe os campos correspondentes abaixo:</p>
-                    <form id="editFilialForm">
+                    <form id="editPasswordForm">
                         <div class="col-6 mt-5 mx-auto desc-modal">
-                            <label for="edit_filial_name" class="form-label">Código:</label>
+                            <label for="code" class="form-label">Código:</label>
                             <input type="text" id="code" class="form-control mb-2" required>
 
-                            <label for="edit_filial_name" class="form-label">CNPJ:</label>
+                            <label for="cnpj" class="form-label">CNPJ:</label>
                             <input type="text" id="cnpj" class="form-control mb-2" required>
 
-                            <label for="edit_filial_name" class="form-label">Nova Senha:</label>
-                            <input type="password" id="cnpj" class="form-control mb-2" required>
+                            <label for="senha" class="form-label">Nova Senha:</label>
+                            <input type="password" id="senha" class="form-control mb-2" required>
                         </div>
                         <input type="hidden" id="edit_filial_id">
                         <div class="col-6 my-5 mx-auto button-modal-confirm">
                             <button class="btn btn-primary mx-auto btn-lg" type="submit" style="width: 100%;"
-                                onclick="">Alterar Senha</button>
+                                onclick="handleModifyPassword(event)">Alterar Senha</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <!-- Scripts -->
-     <script src="js/app.js"></script>
+    <script>
+        async function handleModifyPassword(event) {
+            event.preventDefault();
+
+            const formData = {
+                codigo: document.getElementById('code').value,
+                cnpj: document.getElementById('cnpj').value,
+                novaSenha: document.getElementById('senha').value,
+            };
+
+            try {
+                const response = await fetch('http://localhost:3000/api/empresa/senha', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+                console.log(response)
+
+                if (!response.ok){
+                    alert("operação inválida, tente novamente")
+                    throw new Error('Não foi possível alterar a senha, tente novamente!');
+                }
+
+                const data = await response.json();
+
+                alert('Modificação de senha realizada com sucesso');
+               
+                window.location.href = `/`;
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+
+        document.getElementById('editPasswordForm').addEventListener('submit', handleModifyPassword);
+    </script>
+
+    <script src="js/app.js"></script>
     <script src="js/password_eye.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

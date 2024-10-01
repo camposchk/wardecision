@@ -22,6 +22,9 @@ routes.get('/filiais', filial.getAllFilials);
 routes.put('/filiais/:id', filial.updateFilialById);
 routes.delete('/del-filiais/:id', filial.deleteFilialById);
 
+//Rota para redefinir senha
+routes.put('/empresa/senha', empresa.redefinicaoSenha);
+
 // Rotas protegidas (autenticadas)
 routes.get('/empresa/:id', authenticateToken, empresa.getEmpresaById);
 routes.delete('/remove-empresa/:id', authenticateToken, empresa.deleteEmpresaById);

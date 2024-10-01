@@ -59,6 +59,16 @@ module.exports = {
       res.status(400).json({ error: error.message });
     }
   },
+
+  async redefinicaoSenha(req, res) {
+    const data = req.body
+    try {
+      const senhaAtualizada = await empresaService.redefinirSenha(data);
+      res.status(200).json({senhaAtualizada});
+    } catch (error) {
+      res.status(400).json({error: error.message})
+    }
+  }
 };
 
 
