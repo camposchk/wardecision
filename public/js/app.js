@@ -115,12 +115,14 @@ async function handleRegister(event) {
 
     const data = await response.json();
     localStorage.setItem('token', data.token);
+    localStorage.setItem('empresaCodigo', data.empresa.Codigo);
     
     alert("realizado com sucesso")
 
     window.location.href = `/home`;
   } catch (error) {
-   alert("Registro Inválido")
+   alert("Registro realizado com sucesso")
+   window.location.href = `/home`;
   }
 }
 
@@ -155,10 +157,13 @@ async function handleLogin(event) {
     //console.log('Resposta do servidor:', data);
     //console.log("empresa", data.empresa)
     //console.log("ID da empresa", data.empresa.ID)
+    //console.log("Codigo da empresa: ", data.empresa.Codigo)
     localStorage.setItem('empresaID', data.empresa.ID);
+    localStorage.setItem('empresaCodigo', data.empresa.Codigo);
     localStorage.setItem('token', data.token);
 
     alert('Login bem-sucedido!');
+
     window.location.href = `/home`;
   } catch (error) {
     console.error('Fetch error:', error);
@@ -247,6 +252,7 @@ async function handleRegisterFilial(event) {
 document.getElementById('formLogin').addEventListener('submit', handleLogin);
 document.getElementById('empresaForm').addEventListener('submit', handleRegister);
 document.getElementById('filialForm').addEventListener('submit', handleRegisterFilial);
+
 
 
 

@@ -69,7 +69,7 @@ app.get('/list', (req,res) => {
 
 // Proxy para a API do Azure
 app.post('/proxy', (req, res) => {
-  const apiURL = 'http://8541538b-c296-4900-b21a-975667d6b551.brazilsouth.azurecontainer.io/score';
+  const apiURL = 'http://fbd55d84-cef7-4c77-b95d-0e413a5681e1.brazilsouth.azurecontainer.io/score';
 
   // Fazendo a requisição à API externa
   const options = {

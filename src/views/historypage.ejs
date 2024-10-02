@@ -54,13 +54,12 @@
             <div style="display: flex; flex-direction: column">
                 <div style="display: flex; flex-direction: row; align-items: center">
                     <h1 style="color: white; margin-top: 4.5rem; margin-left: 6.5rem">HISTÓRICO</h1>
-                    <input type="text" class="inputstyle" style="margin-top: 4.2rem;">
                 </div>
                 <div style="display: flex; justify-content: center">
-                    <div class="cards" style="margin-top: 2.5rem">
-                        <!-- Verifica se há previsões -->
-                        <% if (predictions && predictions.length > 0) { %>
-                            <% predictions.forEach(function(prediction) { %> <!-- Itera sobre as previsões -->
+                    <!-- Verifica se há previsões -->
+                    <% if (predictions && predictions.length > 0) { %>
+                        <% predictions.forEach(function(prediction) { %> <!-- Itera sobre as previsões -->
+                            <div class="cards" style="margin-top: 2.5rem">
                             <div style="display: flex; flex-direction: row; margin-bottom: 1.5rem">
                                 <div style="display: flex; flex-direction: column">
                                     <h2 style="margin-left: 2rem; color: white; margin-top: 1rem;">QC</h2>
@@ -69,14 +68,14 @@
                                 <div style="width: 2px; height: 69px; background-color: white; margin-top: 1.5rem; margin-left: 3rem"></div>
                                 <div style="display: flex; flex-direction: column">
                                     <h2 style="margin-left: 1rem; color: white; margin-top: 1rem;">PREVISÃO</h2>
-                                    <h3 style="margin-left: 1rem; color: #DEE7E7;"><%= prediction.result %></h3>
+                                    <h3 style="margin-left: 1rem; color: #DEE7E7;"><%= prediction.Saida %></h3>
                                 </div>
                             </div>
+                        </div>     
                             <% }); %>
                         <% } else { %>
                             <h2 style="color: white; text-align: center;">Nenhuma previsão encontrada.</h2>
                         <% } %>
-                    </div>     
                 </div>
             </div>
         </section>
