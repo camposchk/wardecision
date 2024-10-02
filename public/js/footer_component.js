@@ -11,16 +11,11 @@ class FooterElement extends HTMLElement {
         <div class="col-xs-6 col-md-3">
           <h6>Categorias</h6>
           <ul class="footer-links">
-            <li><a href="http://scanfcode.com/category/c-language/">C</a></li>
-            <li><a href="http://scanfcode.com/category/front-end-development/">UI Design</a></li>
-            <li><a href="http://scanfcode.com/category/back-end-development/">PHP</a></li>
-            <li><a href="http://scanfcode.com/category/java-programming-language/">Java</a></li>
-            <li><a href="http://scanfcode.com/category/android/">Android</a></li>
-            <li><a href="http://scanfcode.com/category/templates/">Templates</a></li>
+            <li><a href="https://www.insightlab.ufc.br/principais-algoritmos-de-machine-learning-para-voce-conhecer-em-2022/">Modelos de Machine Learning:</a></li>
           </ul>
         </div>
 
-        <div class="col-xs-6 col-md-3">
+        <div class="col-xs-6 col-md-3"
           <h6>Links</h6>
           <ul class="footer-links">
             <li><a href="http://scanfcode.com/about/">Sobre nós</a></li>

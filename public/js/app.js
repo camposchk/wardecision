@@ -115,12 +115,12 @@ async function handleRegister(event) {
 
     const data = await response.json();
     localStorage.setItem('token', data.token);
+    
+    alert("realizado com sucesso")
 
-    alert('Registro bem-sucedido!');
-    // Redirecionar para a página principal
     window.location.href = `/home`;
   } catch (error) {
-    alert(error.message);
+   alert("Registro Inválido")
   }
 }
 
@@ -162,7 +162,7 @@ async function handleLogin(event) {
     window.location.href = `/home`;
   } catch (error) {
     console.error('Fetch error:', error);
-    alert("Dados inválidos, tente novamente!");
+    alert("Login inválido!")
   }
 }
 
@@ -234,7 +234,8 @@ async function handleRegisterFilial(event) {
 
     const data = await response.json();
 
-    alert('Registro de Filial bem-sucedido!');
+    alert("Registro de Filial bem sucedido")
+
     // Redirecionar para a página principal
     window.location.href = `/home`;
   } catch (error) {

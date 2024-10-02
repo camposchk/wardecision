@@ -154,7 +154,23 @@
 
         window.onload = fetchFiliais;
 
-        //existe algo aqui
+        let debounceTimeout;
+
+        function searchFunction() {
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(() => {
+                const input = document.getElementById('Search');
+                const filter = input.value.toLowerCase();
+                const cards = document.getElementsByClassName('card-body');
+
+                // Converte HTMLCollection para array para usar forEach
+                Array.from(cards).forEach(card => {
+                    const cardText = card.textContent || card.innerText;
+                    card.closest('.cards').style.display = cardText.toLowerCase().includes(filter) ? "" : "none";
+                });
+            }, 300);
+        }
+
         async function submitEdit(event) {
             event.preventDefault();
 
@@ -265,7 +281,6 @@
     <!-- Scripts -->
     <script src="js/navbar_component.js"></script>
     <script src="js/footer_component.js"></script>
-    <script src="js/searchbarjs"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
